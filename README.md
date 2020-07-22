@@ -1,2 +1,27 @@
 # react-bulma-admin
-React Bulma Admin
+
+React 试玩，学习使用
+
+页面及样式来自 [Bulma](https://github.com/jgthms/bulma), [BulmaTemplates](https://github.com/BulmaTemplates/bulma-templates)
+
+## Install
+
+``` shell
+npm install
+```
+
+## Usage
+
+**Develop**
+
+``` shell
+npm run dev
+```
+
+访问 localhost:8080
+
+**Build**
+
+``` shell
+npm run build
+```
