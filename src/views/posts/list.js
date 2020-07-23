@@ -128,7 +128,12 @@ export default function Index(props) {
       <div className="has-text-primary">Showing 1 to 10 of 49 entries</div>
     </div>
     <div className="column">
-      <Pagination page={page} setPage={setPage} totalPage={latestData?.totalPage ?? 1}/>
+      <div className="is-centered">
+        <Pagination
+          page={page}
+          setPage={setPage}
+          totalPage={latestData?.totalPage ?? 1}/>
+      </div>
     </div>
   </div>
 </>

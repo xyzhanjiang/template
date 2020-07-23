@@ -15,7 +15,7 @@ export default function Pagination({ page, setPage, totalPage }) {
   }
 
   return (
-    <nav className="pagination is-small is-centered" role="navigation">
+    <nav className="pagination is-small" role="navigation">
       <ul className="pagination-list">
         <li>
           <a
