@@ -1,6 +1,7 @@
 import 'bulma/css/bulma.css'
 import '@/css/style.css'
 
+import 'es6-promise/auto'
 import 'regenerator-runtime' // For babel to translate async/await
 import React from 'react'
 import ReactDOM from 'react-dom'
