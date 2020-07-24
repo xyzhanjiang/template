@@ -95,7 +95,7 @@ export default function Index(props) {
       <p className="level-item"><a>Deleted</a></p>
       <p className="level-item">
         <Link className="button is-success" to="/posts/add">New</Link>
-        </p>
+      </p>
     </div>
   </nav>
 

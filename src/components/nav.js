@@ -21,7 +21,7 @@ export default function Nav() {
       Bulma Admin
     </Link>
     <a
-      onClick={() => setNavbarShown(true)}
+      onClick={() => setNavbarShown((val) => !val)}
       role="button"
       className="navbar-burger burger"
       aria-label="menu"

@@ -72,7 +72,7 @@ export default function PostAdd() {
           <div className="field is-grouped">
             <div className="control">
               <button
-                className={`button is-primary${isSubmitting ? ' is-loading' : ''}`}
+                className={`button is-link${isSubmitting ? ' is-loading' : ''}`}
                 disabled={isSubmitting}
                 type="submit">
                 Create
