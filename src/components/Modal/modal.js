@@ -1,17 +1,27 @@
 import React from 'react'
 
-{/* <div classNameName="modal modal-fade">
-  {props.children}
-</div> */}
-
 export default function Modal({ content, modalData }) {
+  const modal = React.useRef(null)
   const [isShown, setShown] = React.useState(false)
   React.useEffect(() => {
     Object.keys(modalData).length > 0 && setShown(true)
   }, [modalData])
 
+  React.useEffect(() => {
+    // TODO 抖动
+    document.documentElement.classList[isShown ? 'add' : 'remove']('is-clipped')
+
+    if (isShown) {
+      modal.current.offsetWidth
+      modal.current.classList.add('is-in')
+    } else {
+      // TODO 关闭动画效果
+      modal.current.classList.remove('is-in')
+    }
+  })
+
   return (
-    <div className={`modal modal-fade ${isShown ? ' is-active' : ''}`}>
+    <div className={`modal modal-fx-fade${isShown ? ' is-active' : ''}`} ref={modal}>
       <div className="modal-background"></div>
       <div className="modal-card">
         <header className="modal-card-head">

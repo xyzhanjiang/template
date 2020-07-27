@@ -64,8 +64,7 @@ export default function Form() {
       <div className="field">
         <div className="control">
           <label className="checkbox">
-            <input type="checkbox"/>
-            I agree to the <a href="#">terms and conditions</a>
+            <input type="checkbox"/> I agree to the <a href="#">terms and conditions</a>
           </label>
         </div>
       </div>
@@ -73,12 +72,10 @@ export default function Form() {
       <div className="field">
         <div className="control">
           <label className="radio">
-            <input type="radio" name="question"/>
-            Yes
+            <input type="radio" name="question"/> Yes
           </label>
           <label className="radio">
-            <input type="radio" name="question"/>
-            No
+            <input type="radio" name="question"/> No
           </label>
         </div>
       </div>
@@ -88,7 +85,7 @@ export default function Form() {
           <button className="button is-link">Submit</button>
         </div>
         <div className="control">
-          <button className="button is-link is-light">Cancel</button>
+          <button className="button is-outlined">Cancel</button>
         </div>
       </div>
     </div>

@@ -15,13 +15,13 @@ export default function Nav() {
   }
 
   return (
-<nav className="navbar has-shadow" role="navigation" aria-label="main navigation">
+<nav className="navbar has-shadow is-primary" role="navigation" aria-label="main navigation">
   <div className="navbar-brand">
     <Link className="navbar-item brand-text" to="/">
       Bulma Admin
     </Link>
     <a
-      onClick={() => setNavbarShown(true)}
+      onClick={() => setNavbarShown((val) => !val)}
       role="button"
       className="navbar-burger burger"
       aria-label="menu"

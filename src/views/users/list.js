@@ -13,7 +13,7 @@ function Item({ item }) {
     //
   }
 
-  function delUser(user) {
+  function del(item) {
     if (!window.confirm('Sure?')) return
     console.log('Delete complete!')
   }
@@ -28,12 +28,24 @@ function Item({ item }) {
       <td>{item.website}</td>
       <td>
         <div className="buttons">
-          <a onClick={() => getUser(item)} className="button is-small is-primary" href="#">
+          <a
+            onClick={(e) => {
+              e.preventDefault()
+              getUser(item)
+            }}
+            className="button is-small is-link"
+            href="#">
             <span className="icon is-small">
               <i className="fa fa-edit"></i>
             </span>
           </a>
-          <a onClick={() => delUser(item)} className="button is-small is-danger" href="#">
+          <a
+            onClick={(e) => {
+              e.preventDefault()
+              del(item)
+            }}
+            className="button is-small is-danger"
+            href="#">
             <span className="icon is-small">
               <i className="fa fa-times"></i>
             </span>
@@ -78,41 +90,43 @@ export default function List(props) {
       <li className="is-active"><a href="#" aria-current="page">List</a></li>
     </ul>
   </nav>
-  <div className="content">
-    {status === 'loading' ? (
-      <div>Loading...</div>
-    ) : status === 'error' ? (
-      <div>{error.message}</div>
-    ) : <table className="table is-fullwidth is-striped">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Username</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Website</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {resolvedData.posts.map((item) => (
-          <Item item={item} key={item.id}/>
-        ))}
-      </tbody>
-    </table>}
-  </div>
-  <div className="columns">
-    <div className="column">
-      <div
-        className="has-text-primary">
-        Showing 1 to 10 of 49 entries
+  {status === 'loading' ? (
+    <div>Loading...</div>
+  ) : status === 'error' ? (
+    <div>{error.message}</div>
+  ) : <>
+    <div className="content">
+      <table className="table is-fullwidth is-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Website</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {resolvedData.posts.map((item) => (
+            <Item item={item} key={item.id}/>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <div className="columns">
+      <div className="column">
+        <div
+          className="has-text-primary">
+          Showing {(page - 1) * pageSize + 1} to {page * pageSize} of 10 users
+        </div>
+      </div>
+      <div className="column">
+        <Pagination page={page} setPage={setPage} totalPage={latestData?.totalPage ?? 1}/>
       </div>
     </div>
-    <div className="column">
-      <Pagination page={page} setPage={setPage} totalPage={latestData?.totalPage ?? 1}/>
-    </div>
-  </div>
+  </>}
 </>
   )
 }
