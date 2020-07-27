@@ -20,7 +20,7 @@ export default function Dashboard() {
       chart2.destroy()
       chart2 = null
     }
-  })
+  }, [])
 
   return (
 <>

@@ -1,0 +1,46 @@
+.app-login {
+  color: $grey-dark;
+}
+
+@media (min-width: 769px) {
+  .app-login {
+    padding-top: 8rem;
+  }
+}
+
+.app-login-box {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  padding: 4.5rem;
+  text-align: center;
+  & .title {
+    font-weight: 800;
+  }
+}
+
+.app-login-description {
+  color: $grey-light;
+  font-size: 1.15rem;
+  margin: 1rem 0;
+}
+
+/* Modal effect */
+.modal-fx-fade .modal-background {
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.modal-fx-fade.is-in .modal-background {
+  opacity: 1;
+}
+
+.modal-fx-fade .modal-card {
+  opacity: 0;
+  transform: scale(1.25);
+  transition: all .3s;
+}
+
+.modal-fx-fade.is-in .modal-card {
+  opacity: 1;
+  transform: scale(1);
+}

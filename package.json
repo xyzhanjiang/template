@@ -35,7 +35,6 @@
     "apexcharts": "^3.19.3",
     "axios": "^0.19.2",
     "bulma": "^0.9.0",
-    "bulmaswatch": "^0.8.1",
     "dayjs": "^1.8.29",
     "dompurify": "^2.0.12",
     "es6-promise": "^4.2.8",

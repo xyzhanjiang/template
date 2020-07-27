@@ -20,18 +20,13 @@ export default function PostAdd() {
     /**
      * post 格式
      * {
-     *   author
      *   body
-     *   date
      *   title
      * }
      */
     axios.post('/posts', {
       title,
-      body,
-      // ?. ES2020 语法，通过 Babel 编译
-      author: user?.name || 'NameLess',
-      date: new Date()
+      body
     }).then(() => {
       history.push('/posts') // 添加成功后跳转首页
     }).catch((err) => {

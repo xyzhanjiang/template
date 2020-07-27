@@ -1,8 +1,8 @@
 // import 'bulma/css/bulma.css'
+// 覆盖 bulma 的默认样式
 import '@/css/style.scss'
-import '@/css/style.css'
 
-import 'es6-promise/auto'
+import 'es6-promise/auto' // For IE 11
 import 'regenerator-runtime' // For babel to translate async/await
 import React from 'react'
 import ReactDOM from 'react-dom'
