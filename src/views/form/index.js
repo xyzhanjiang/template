@@ -63,22 +63,22 @@ export default function Form() {
 
       <div className="field">
         <div className="control">
-          <label className="checkbox">
-            <input type="checkbox"/>
-            I agree to the <a href="#">terms and conditions</a>
+          <label className="app-checkbox">
+            <input type="checkbox"/> I agree to the <a href="#">terms and conditions</a>
+            <span className="app-checkbox-item"></span>
           </label>
         </div>
       </div>
 
       <div className="field">
         <div className="control">
-          <label className="radio">
-            <input type="radio" name="question"/>
-            Yes
+          <label className="app-radio">
+            <input type="radio" name="question"/> Yes
+            <span className="app-radio-item"></span>
           </label>
-          <label className="radio">
-            <input type="radio" name="question"/>
-            No
+          <label className="app-radio">
+            <input type="radio" name="question"/> No
+            <span className="app-radio-item"></span>
           </label>
         </div>
       </div>
@@ -88,7 +88,7 @@ export default function Form() {
           <button className="button is-link">Submit</button>
         </div>
         <div className="control">
-          <button className="button is-link is-light">Cancel</button>
+          <button className="button is-outlined">Cancel</button>
         </div>
       </div>
     </div>

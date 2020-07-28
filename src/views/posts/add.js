@@ -20,18 +20,13 @@ export default function PostAdd() {
     /**
      * post 格式
      * {
-     *   author
      *   body
-     *   date
      *   title
      * }
      */
     axios.post('/posts', {
       title,
-      body,
-      // ?. ES2020 语法，通过 Babel 编译
-      author: user?.name || 'NameLess',
-      date: new Date()
+      body
     }).then(() => {
       history.push('/posts') // 添加成功后跳转首页
     }).catch((err) => {
@@ -72,7 +67,7 @@ export default function PostAdd() {
           <div className="field is-grouped">
             <div className="control">
               <button
-                className={`button is-primary${isSubmitting ? ' is-loading' : ''}`}
+                className={`button is-link${isSubmitting ? ' is-loading' : ''}`}
                 disabled={isSubmitting}
                 type="submit">
                 Create
