@@ -66,7 +66,8 @@ export function usePosts(page = 1) {
     error,
     data,
     isLoading,
-    isDelayElapsed
+    isDelayElapsed,
+    setData
   }
 }
 

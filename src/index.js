@@ -1,5 +1,6 @@
 // import 'bulma/css/bulma.css'
 // 覆盖 bulma 的默认样式
+import '@fortawesome/fontawesome-free/js/all.min'
 import '@/css/style.scss'
 
 import 'es6-promise/auto' // For IE 11

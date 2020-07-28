@@ -8,18 +8,18 @@ import { usePosts } from '@/common'
 
 import { pageSize } from '@/config'
 
-function Item({ item, setModalData }) {
+function Item({ item, rowIndex, setModalData }) {
   let match = useRouteMatch()
 
-  function getPost(row) {
-    setModalData({ ...row })
+  const getPost = (row) => {
+    setModalData({ ...row, rowIndex:  rowIndex})
   }
 
   function del(item) {
     if (!window.confirm('Sure?')) return
     console.log('Delete complete!')
   }
-
+  
   return (
     <tr>
       <td>{item.id}</td>
@@ -60,19 +60,42 @@ export default function Index() {
   const [page, setPage] = React.useState(1)
   const [modalData, setModalData] = React.useState({})
 
-  const {error, isLoading, data} = usePosts(page)
+  const {error, isLoading, data, setData} = usePosts(page)
+
+  const submitModal = (row) => {
+    setData(data => {
+      let data2 = [...data.posts]
+      data2[+row.rowIndex - 1] = modalData
+      return {
+        posts: data2,
+        totalCount: data.totalCount
+      }
+    })
+  }
 
   let con = <div className="columns">
     <div className="column is-5">
       <div className="field">
-        {modalData.id}
-        <label className="label">Name{modalData.id}</label>
+        <label className="label">title</label>
         <div className="control">
           <input
             className="input"
-            defaultValue={modalData.title}
+            value={modalData?.title ?? ''}
             type="text"
             placeholder="Text input"
+            onChange={({ target }) => setModalData(modalData => {return  {...modalData, title: target.value}})}
+          />
+        </div>
+      </div>
+      <div className="field">
+        <label className="label">body</label>
+        <div className="control">
+          <input
+            className="input"
+            value={modalData?.body ?? ''}
+            type="text"
+            placeholder="Text input"
+            onChange={({ target }) => setModalData(modalData => {return  {...modalData, body: target.value}})}
           />
         </div>
       </div>
@@ -135,7 +158,7 @@ export default function Index() {
             </thead>
             <tbody>
               {data.posts.map((item) => (
-                <Item item={item} key={item.id} setModalData={setModalData} />
+                <Item item={item} key={item.id} rowIndex={item.id} setModalData={setModalData} />
               ))}
             </tbody>
           </table>
@@ -157,7 +180,7 @@ export default function Index() {
           </div>
         </div>
       </>}
-      <Modal content={con} modalData={modalData}></Modal>
+      <Modal content={con} modalData={modalData} submitModal={submitModal}></Modal>
     </>
   )
 }
