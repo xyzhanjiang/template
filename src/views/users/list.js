@@ -8,7 +8,7 @@ import Pagination from '@/components/pagination'
 
 import { pageSize } from '@/config'
 
-function Item({ item }) {
+function Item({ item, index, setSelectedIndex }) {
   function getUser(user) {
     //
   }
@@ -31,7 +31,7 @@ function Item({ item }) {
           <a
             onClick={(e) => {
               e.preventDefault()
-              getUser(item)
+              setSelectedIndex(index)
             }}
             className="button is-small is-link"
             href="#">
@@ -58,11 +58,12 @@ function Item({ item }) {
 
 export default function List(props) {
   const [page, setPage] = React.useState(1)
+  const [selectedIndex, setSelectedIndex] = React.useState(-1)
   const fetchPosts = React.useCallback(async (key, page = 1) => {
     let { headers, data } = await axios.get(
         `/users?_embed=comments&_page=${page}`)
     return {
-      posts: data,
+      users: data,
       totalPage: Math.ceil(headers['x-total-count'] / pageSize)
     }
   }, [])
@@ -80,6 +81,10 @@ export default function List(props) {
       queryCache.prefetchQuery(['posts', page + 1], fetchPosts)
     }
   }, [latestData, fetchPosts, page])
+
+  function edit() {
+    console.log('Edit')
+  }
 
   return (
 <>
@@ -109,8 +114,13 @@ export default function List(props) {
           </tr>
         </thead>
         <tbody>
-          {resolvedData.posts.map((item) => (
-            <Item item={item} key={item.id}/>
+          {resolvedData.users.map((item, index) => (
+            <Item
+              index={index}
+              item={item}
+              setSelectedIndex={setSelectedIndex}
+              key={item.id}
+            />
           ))}
         </tbody>
       </table>
@@ -127,6 +137,76 @@ export default function List(props) {
       </div>
     </div>
   </>}
+  <Modal isShown={selectedIndex >= 0}>
+    <div className="modal-background"></div>
+    <form onSubmit={edit} action="#" method="post">
+      <div className="modal-card">
+        <header className="modal-card-head">
+          <p className="modal-card-title">Edit user</p>
+          <button
+            onClick={() => setSelectedIndex(-1)}
+            className="delete"
+            aria-label="close"
+            type="button"></button>
+        </header>
+        <section className="modal-card-body">
+          <div className="columns">
+            <div className="column is-6">
+              <label className="label">Username</label>
+              <p className="control">
+                <input
+                  className="input"
+                  placeholder="Username"
+                  type="text"
+                />
+              </p>
+              <label className="label">Email</label>
+              <p className="control">
+                <input
+                  className="input"
+                  placeholder="Email"
+                  type="text"
+                />
+              </p>
+              <label className="label">Website</label>
+              <p className="control">
+                <input
+                  className="input"
+                  placeholder="Website"
+                  type="text"
+                />
+              </p>
+            </div>
+            <div className="column is-6">
+              <label className="label">Name</label>
+              <p className="control">
+                <input
+                  className="input" placeholder="Name" type="text"
+                />
+              </p>
+              <label className="label">Phone</label>
+              <p className="control">
+                <input
+                  className="input"
+                  placeholder="Phone"
+                  type="text"
+                />
+              </p>
+            </div>
+          </div>
+        </section>
+        <footer className="modal-card-foot">
+          <button
+            className="button is-primary"
+            type="submit">Save</button>
+          <button
+            onClick={() => setSelectedIndex(-1)}
+            className="button"
+            type="button">Cancel</button>
+        </footer>
+      </div>
+    </form>
+  </Modal>
 </>
   )
 }

@@ -63,19 +63,22 @@ export default function Form() {
 
       <div className="field">
         <div className="control">
-          <label className="checkbox">
+          <label className="app-checkbox">
             <input type="checkbox"/> I agree to the <a href="#">terms and conditions</a>
+            <span className="app-checkbox-item"></span>
           </label>
         </div>
       </div>
 
       <div className="field">
         <div className="control">
-          <label className="radio">
+          <label className="app-radio">
             <input type="radio" name="question"/> Yes
+            <span className="app-radio-item"></span>
           </label>
-          <label className="radio">
+          <label className="app-radio">
             <input type="radio" name="question"/> No
+            <span className="app-radio-item"></span>
           </label>
         </div>
       </div>
