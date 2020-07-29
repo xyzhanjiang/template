@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Modal({ content, modalData }) {
+export default function Modal({ content, modalData, submitModal }) {
   const modal = React.useRef(null)
   const [isShown, setShown] = React.useState(false)
   React.useEffect(() => {
@@ -32,7 +32,7 @@ export default function Modal({ content, modalData }) {
           {content}
         </section>
         <footer className="modal-card-foot">
-          <button className="button is-success">Save changes</button>
+          <button className="button is-success" onClick={() => {setShown(false); submitModal(modalData)}}>Save changes</button>
           <button className="button" onClick={() => setShown(false)}>Cancel</button>
         </footer>
       </div>
