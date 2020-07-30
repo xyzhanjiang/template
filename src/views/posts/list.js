@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
-import { useRouteMatch, Link, useLocation } from 'react-router-dom'
+import { useRouteMatch, Link } from 'react-router-dom'
 import axios from 'axios'
 
+import Checkbox from '@/components/checkbox'
 import Pagination from '@/components/pagination'
 import Modal from '@/components/Modal/modal'
-import { usePosts } from '@/common'
 
 import { pageSize } from '@/config'
 
@@ -22,6 +22,7 @@ function Item({ item, rowIndex, setModalData }) {
   
   return (
     <tr>
+      <th><div className="pt-1"><Checkbox id={item.id}/></div></th>
       <td>{item.id}</td>
       <td><Link to={`${match.path}/${item.id}`}>{item.title}</Link></td>
       <td>{item.user?.name}</td>
@@ -56,21 +57,16 @@ function Item({ item, rowIndex, setModalData }) {
   )
 }
 
-export default function Index() {
+export default function Index({ error, isLoading, items, totalCount, fetchPosts }) {
   const [page, setPage] = React.useState(1)
   const [modalData, setModalData] = React.useState({})
 
-  const {error, isLoading, data, setData} = usePosts(page)
+  React.useEffect(() => {
+    fetchPosts(page)
+  }, [page])
 
-  const submitModal = (row) => {
-    setData(data => {
-      let data2 = [...data.posts]
-      data2[+row.rowIndex - 1] = modalData
-      return {
-        posts: data2,
-        totalCount: data.totalCount
-      }
-    })
+  const submitModal = () => {
+    fetchPosts(page)
   }
 
   let con = <div className="columns">
@@ -83,7 +79,9 @@ export default function Index() {
             value={modalData?.title ?? ''}
             type="text"
             placeholder="Text input"
-            onChange={({ target }) => setModalData(modalData => {return  {...modalData, title: target.value}})}
+            onChange={({ target }) => {
+              setModalData(modalData => ({...modalData, title: target.value}))}
+            }
           />
         </div>
       </div>
@@ -95,7 +93,9 @@ export default function Index() {
             value={modalData?.body ?? ''}
             type="text"
             placeholder="Text input"
-            onChange={({ target }) => setModalData(modalData => {return  {...modalData, body: target.value}})}
+            onChange={({ target }) => {
+              setModalData(modalData => ({...modalData, body: target.value}))}
+            }
           />
         </div>
       </div>
@@ -111,16 +111,16 @@ export default function Index() {
           <li className="is-active"><a href="#" aria-current="page">List</a></li>
         </ul>
       </nav>
-      {isLoading ? (
+      {isLoading && items.length === 0 ? (
         <div>Loading...</div>
-      ) : error ? (
+      ) : error && items.length === 0 ? (
         <div>{error.message}</div>
-      ) : <>
+      ) : items.length > 0 && <>
         <nav className="level">
           <div className="level-left">
             <div className="level-item">
               <p className="subtitle is-5">
-                <strong>{data.totalCount}</strong> posts
+                <strong>{totalCount}</strong> posts
               </p>
             </div>
             <div className="level-item">
@@ -149,6 +149,7 @@ export default function Index() {
           <table className="table is-fullwidth is-striped">
             <thead>
               <tr>
+                <th><div className="pt-1"><Checkbox id="select-all"/></div></th>
                 <th>ID</th>
                 <th>Title</th>
                 <th>Name</th>
@@ -157,8 +158,13 @@ export default function Index() {
               </tr>
             </thead>
             <tbody>
-              {data.posts.map((item) => (
-                <Item item={item} key={item.id} rowIndex={item.id} setModalData={setModalData} />
+              {items.map((item) => (
+                <Item
+                  item={item}
+                  key={item.id}
+                  rowIndex={item.id}
+                  setModalData={setModalData}
+                />
               ))}
             </tbody>
           </table>
@@ -166,7 +172,7 @@ export default function Index() {
         <div className="columns">
           <div className="column">
             <div className="has-text-primary">
-              Showing {(page - 1) * pageSize + 1} to {page * pageSize} of {data.totalCount} posts
+              Showing {(page - 1) * pageSize + 1} to {page * pageSize} of {totalCount} posts
             </div>
           </div>
           <div className="column">
@@ -174,7 +180,7 @@ export default function Index() {
               <Pagination
                 page={page}
                 setPage={setPage}
-                totalPage={Math.ceil(data.totalCount / pageSize)}
+                totalPage={Math.ceil(totalCount / pageSize)}
               />
             </div>
           </div>

@@ -1,5 +1,8 @@
 import React from 'react'
 
+import Checkbox from '@/components/checkbox'
+import Radio from '@/components/radio'
+
 export default function Form() {
   return (
 <section className="section">
@@ -63,23 +66,17 @@ export default function Form() {
 
       <div className="field">
         <div className="control">
-          <label className="app-checkbox">
-            <input type="checkbox"/> I agree to the <a href="#">terms and conditions</a>
-            <span className="app-checkbox-item"></span>
-          </label>
+          <Checkbox id="checkbox-1">
+            I agree to the <a href="#">terms and conditions</a>
+          </Checkbox>
         </div>
       </div>
 
       <div className="field">
         <div className="control">
-          <label className="app-radio">
-            <input type="radio" name="question"/> Yes
-            <span className="app-radio-item"></span>
-          </label>
-          <label className="app-radio">
-            <input type="radio" name="question"/> No
-            <span className="app-radio-item"></span>
-          </label>
+          <Radio id="radio-1" name="question">Yes</Radio>
+          &nbsp;
+          <Radio id="radio-2" name="question">No</Radio>
         </div>
       </div>
 

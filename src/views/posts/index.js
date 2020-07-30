@@ -7,7 +7,7 @@ import {
 
 import Nav from '@/components/nav'
 
-import List from './list'
+import List from '@/containers/posts/list'
 import Post from './post'
 import Add from './add'
 
