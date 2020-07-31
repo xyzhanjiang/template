@@ -9,6 +9,7 @@ import Users from '@/views/users'
 import Posts from '@/views/posts'
 import Form from '@/views/form'
 import Tiles from '@/views/tiles'
+import Buttons from '@/views/Buttons'
 
 export default function Login({ login }) {
   const [name, setName] = React.useState('')
@@ -50,6 +51,9 @@ export default function Login({ login }) {
           </Route>
           <Route path="/tiles">
             <Tiles/>
+          </Route>
+          <Route path="/buttons">
+            <Buttons/>
           </Route>
           <Route path="/">
             <Dashboard/>

@@ -84,6 +84,13 @@ export default function Menu() {
         Tiles
       </NavLink>
     </li>
+    <li>
+      <NavLink
+        activeClassName="is-active"
+        to="/buttons">
+        Buttons
+      </NavLink>
+    </li>
   </ul>
 </aside>
   )
