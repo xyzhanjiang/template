@@ -66,7 +66,8 @@ export default function Form() {
 
       <div className="field">
         <div className="control">
-          <Checkbox id="checkbox-1">
+          <Checkbox>
+            <input type="checkbox"/>
             I agree to the <a href="#">terms and conditions</a>
           </Checkbox>
         </div>
@@ -74,9 +75,14 @@ export default function Form() {
 
       <div className="field">
         <div className="control">
-          <Radio id="radio-1" name="question">Yes</Radio>
-          &nbsp;
-          <Radio id="radio-2" name="question">No</Radio>
+          <Radio>
+            <input name="question" type="radio"/>
+            Yes
+          </Radio>
+          <Radio>
+            <input name="question" type="radio"/>
+            No
+          </Radio>
         </div>
       </div>
 

@@ -1,11 +1,11 @@
 import React from 'react'
 
-export default function Checkbox({ id, children }) {
+export default function Checkbox({ children }) {
   return (
-    <>
-      <input className="by-checkbox" id={id} type="checkbox"/>
-      <label htmlFor={id}>{children}</label>
-    </>
+    <label className="by-checkbox">
+      {children}
+      <span className="by-checkbox-item"></span>
+    </label>
   )
 }
 

@@ -8,6 +8,9 @@ import Modal from '@/components/Modal/modal'
 
 import { pageSize } from '@/config'
 
+/*
+ * 表格数据
+ */
 function Item({ item, rowIndex, setModalData }) {
   let match = useRouteMatch()
 
@@ -22,7 +25,13 @@ function Item({ item, rowIndex, setModalData }) {
   
   return (
     <tr>
-      <th><div className="pt-1"><Checkbox id={item.id}/></div></th>
+      <th>
+        <div className="pt-1">
+          <Checkbox>
+            <input checked={item.selected} type="checkbox"/>
+          </Checkbox>
+        </div>
+      </th>
       <td>{item.id}</td>
       <td><Link to={`${match.path}/${item.id}`}>{item.title}</Link></td>
       <td>{item.user?.name}</td>
@@ -149,7 +158,13 @@ export default function Index({ error, isLoading, items, totalCount, fetchPosts 
           <table className="table is-fullwidth is-striped">
             <thead>
               <tr>
-                <th><div className="pt-1"><Checkbox id="select-all"/></div></th>
+                <th>
+                  <div className="pt-1">
+                    <Checkbox>
+                      <input type="checkbox"/>
+                    </Checkbox>
+                  </div>
+                </th>
                 <th>ID</th>
                 <th>Title</th>
                 <th>Name</th>

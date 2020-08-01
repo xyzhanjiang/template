@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRouteMatch, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { usePaginatedQuery, queryCache } from 'react-query'
 
@@ -82,6 +82,8 @@ export default function List(props) {
     }
   }, [latestData, fetchPosts, page])
 
+  const user = resolvedData?.users[selectedIndex]
+
   function edit() {
     console.log('Edit')
   }
@@ -156,6 +158,7 @@ export default function List(props) {
               <p className="control">
                 <input
                   className="input"
+                  defaultValue={user?.username}
                   placeholder="Username"
                   type="text"
                 />
@@ -164,6 +167,7 @@ export default function List(props) {
               <p className="control">
                 <input
                   className="input"
+                  defaultValue={user?.email}
                   placeholder="Email"
                   type="text"
                 />
@@ -172,6 +176,7 @@ export default function List(props) {
               <p className="control">
                 <input
                   className="input"
+                  defaultValue={user?.website}
                   placeholder="Website"
                   type="text"
                 />
@@ -181,13 +186,17 @@ export default function List(props) {
               <label className="label">Name</label>
               <p className="control">
                 <input
-                  className="input" placeholder="Name" type="text"
+                  className="input"
+                  defaultValue={user?.name}
+                  placeholder="Name" 
+                  type="text"
                 />
               </p>
               <label className="label">Phone</label>
               <p className="control">
                 <input
                   className="input"
+                  defaultValue={user?.phone}
                   placeholder="Phone"
                   type="text"
                 />

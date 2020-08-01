@@ -1,11 +1,11 @@
 import React from 'react'
 
-export default function Radio({ id, children, name }) {
+export default function Radio({ children }) {
   return (
-    <>
-      <input className="by-radio" id={id} name={name} type="checkbox"/>
-      <label htmlFor={id}>{children}</label>
-    </>
+    <label className="by-radio radio">
+      {children}
+      <span className="by-radio-item"></span>
+    </label>
   )
 }
 
