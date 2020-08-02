@@ -32,7 +32,7 @@ const posts = (state = {
       }
     default:
       return state
-  }
+    }
 }
 
 // 多个 reducer 通过 combineReducers 组合

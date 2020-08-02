@@ -35,12 +35,6 @@ function PrivateRoute({ children, ...rest }) {
 }
 
 export default function App() {
-  const [user, setUser] = React.useState(null)
-
-  function login(data) {
-    setUser(data)
-  }
-
   return (
     <ReactQueryConfigProvider config={queryConfig}>
       <Router>
@@ -52,7 +46,7 @@ export default function App() {
             <Register/>
           </Route>
           <Route path="/login">
-            <Login login={login}/>
+            <Login/>
           </Route>
           <Route path="/about">
             <About/>

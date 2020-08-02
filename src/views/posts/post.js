@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams, useRouteMatch } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useMutation, queryCache } from 'react-query'
 
@@ -59,7 +59,7 @@ function Comment({ item, id }) {
 export default function Post() {
   const { id } = useParams()
 
-  const { status, data, error, isFetching } = usePost(id)
+  const { status, data, error } = usePost(id)
 
   const [content, setContent] = React.useState('')
   const [isSubmitting, setSubmitting] = React.useState(false)
@@ -67,7 +67,7 @@ export default function Post() {
   const [mutate] = useMutation((comment) => {
     return axios.post('/comments', comment)
   }, {
-    onMutate: (comment) => {
+    onMutate: () => {
       setContent('')
       queryCache.cancelQueries(['post', id])
 
@@ -81,13 +81,13 @@ export default function Post() {
 
   function addComment(e) {
     e.preventDefault()
+    setSubmitting(true)
     mutate({
-      // ?. ES2020 语法，通过 Babel 编译
-      author: user?.name || 'NameLess',
       content,
       date: new Date(),
       postId: +id
     })
+    setSubmitting(false)
   }
 
   return (

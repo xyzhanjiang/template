@@ -23,7 +23,9 @@ const middleware = [thunk]
 const store = createStore(reducer, applyMiddleware(...middleware))
 
 import App from '@/app'
+new Promise(() => {
 
+})
 ReactDOM.render(
   <Provider store={store}>
     <App/>

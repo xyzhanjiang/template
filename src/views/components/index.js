@@ -5,8 +5,6 @@ import {
   useRouteMatch
 } from 'react-router-dom'
 
-import Nav from '@/components/nav'
-
 import Modal from './modal'
 
 export default function App() {

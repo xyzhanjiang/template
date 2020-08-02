@@ -16,9 +16,11 @@ export default function Modal(props) {
   })
 
   return (
-<div className={`modal modal-fx-fade${props.isShown ? ' is-active' : ''}`} ref={modal}>
-  {props.children}
-</div>
+    <div
+      className={`modal modal-fx-fade${props.isShown ? ' is-active' : ''}`}
+      ref={modal}>
+      {props.children}
+    </div>
   )
 }
 

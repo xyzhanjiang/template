@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useRouteMatch, Link } from 'react-router-dom'
-import axios from 'axios'
 
 import Checkbox from '@/components/checkbox'
 import Pagination from '@/components/pagination'
@@ -20,6 +19,7 @@ function Item({ item, rowIndex, setModalData }) {
 
   function del(item) {
     if (!window.confirm('Sure?')) return
+    console.log(item)
     console.log('Delete complete!')
   }
   

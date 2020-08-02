@@ -5,8 +5,6 @@ import {
   useRouteMatch
 } from 'react-router-dom'
 
-import Nav from '@/components/nav'
-
 import List from '@/containers/posts/list'
 import Post from './post'
 import Add from './add'

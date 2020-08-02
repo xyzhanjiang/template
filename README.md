@@ -29,3 +29,21 @@ npm run dev
 ``` shell
 npm run build
 ```
+
+## Structure
+
+``` bash
+project-name
+|- index.html
+|- package.json
+|- /src
+  |- app.js
+  |- index.js
+  |- /actions
+  |- /components
+  |- /containers
+  |- /css
+  |- /images
+  |- /reducers   // Redux reducers
+  |- /views      // Page component
+```
