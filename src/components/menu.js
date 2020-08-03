@@ -1,7 +1,6 @@
 import React from 'react'
 import {
-  NavLink,
-  Link
+  NavLink
 } from 'react-router-dom'
 
 export default function Menu() {
@@ -17,7 +16,7 @@ export default function Menu() {
             exact
             to="/">
             <span className="icon is-small">
-              <i className="fa fa-tachometer"></i>
+              <i className="fas fa-chart-bar"></i>
             </span> Dashboard
           </NavLink>
         </li>
@@ -34,11 +33,11 @@ export default function Menu() {
           </a>
         </li>
         <li>
-          <Link to="/users">
+          <a>
             <span className="icon is-small">
               <i className="fa fa-users"></i>
             </span> Manage Your Team
-          </Link>
+          </a>
           <ul>
             <li>
               <NavLink

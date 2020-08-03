@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { usePaginatedQuery, queryCache } from 'react-query'
 
+import Checkbox from '@/components/checkbox'
 import Modal from '@/components/modal'
 import Pagination from '@/components/pagination'
 
@@ -18,6 +19,13 @@ function Item({ item, index, setSelectedIndex }) {
 
   return (
     <tr>
+      <th>
+        <div className="pt-1">
+          <Checkbox>
+            <input checked={item.selected} type="checkbox"/>
+          </Checkbox>
+        </div>
+      </th>
       <td>{item.id}</td>
       <td>{item.username}</td>
       <td>{item.name}</td>
@@ -103,6 +111,13 @@ export default function List() {
           <table className="table is-fullwidth is-striped">
             <thead>
               <tr>
+                <th>
+                  <div className="pt-1">
+                    <Checkbox>
+                      <input type="checkbox"/>
+                    </Checkbox>
+                  </div>
+                </th>
                 <th>ID</th>
                 <th>Username</th>
                 <th>Name</th>

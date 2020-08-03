@@ -64,7 +64,7 @@ export default function Nav() {
             </a>
             <div className="navbar-dropdown">
               <Link className="navbar-item" to="/about">
-                <span className="icon is-small"><i className="fa fa-user-o"></i></span>
+                <span className="icon is-small"><i className="fa fa-user"></i></span>
                 &nbsp; Profile
               </Link>
               <hr className="navbar-divider"/>

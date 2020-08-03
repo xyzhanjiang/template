@@ -1,5 +1,7 @@
 # react-bulma-admin
 
+![axios version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/axios) ![bulma version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/bulma) ![react version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/react) ![react-router version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/react-router-dom) ![redux version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/redux) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/xyzhanjiang/react-bulma-admin/pulls)
+
 React 试玩，练手项目/For practising, for my work
 
 * React
@@ -32,7 +34,7 @@ npm run build
 
 ## Structure
 
-``` bash
+``` shell
 project-name
 |- index.html
 |- package.json
