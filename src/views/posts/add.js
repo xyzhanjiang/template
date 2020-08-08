@@ -1,36 +1,40 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { Link, useHistory } from 'react-router-dom'
-import axios from 'axios'
-// import marked from 'marked'
+
+import { addPost } from '@/features/posts/postsSlice'
 
 export default function PostAdd() {
-  const [title, setTitle] = React.useState('Title here')
-  const [body, setBody] = React.useState('# Hello')
-  const history = useHistory()
-  // const output = marked(body)
+  const [title, setTitle] = React.useState('')
+  const [body, setBody] = React.useState('')
 
   const [isSubmitting, setSubmitting] = React.useState(false)
 
-  function add(e) {
-    e.preventDefault()
-    setSubmitting(true)
+  const dispatch = useDispatch()
+  const history = useHistory()
 
-    /**
-     * post 格式
-     * {
-     *   body
-     *   title
-     * }
-     */
-    axios.post('/posts', {
-      title,
-      body
-    }).then(() => {
-      history.push('/posts') // 添加成功后跳转首页
-    }).catch((err) => {
+  const onTitleChanged = e => setTitle(e.target.value)
+  const onBodyChanged = e => setBody(e.target.value)
+
+  const add = async (e) => {
+    e.preventDefault()
+
+    try {
+      setSubmitting(true)
+      const actionResult = await dispatch(addPost({
+        title,
+        body
+      }))
+      unwrapResult(actionResult)
+      setTitle('')
+      setBody('')
+      history.push('/posts')
+    } catch (err) {
+      console.log(err)
+    } finally {
       setSubmitting(false)
-      alert(err.message)
-    })
+    }
   }
 
   return (
@@ -44,7 +48,8 @@ export default function PostAdd() {
                 <div className="control">
                   <input
                     className="input"
-                    onChange={({ target }) => setTitle(target.value)}
+                    onChange={onTitleChanged}
+                    required
                     type="text"
                     placeholder="Text input"
                     value={title}/>
@@ -55,8 +60,9 @@ export default function PostAdd() {
                 <div className="control">
                   <textarea
                     className="textarea"
-                    onChange={({ target }) => setBody(target.value)}
+                    onChange={onBodyChanged}
                     placeholder="Textarea"
+                    required
                     value={body}>
                   </textarea>
                 </div>

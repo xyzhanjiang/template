@@ -7,14 +7,14 @@ import {
 } from 'react-router-dom'
 import { ReactQueryConfigProvider } from 'react-query'
 
-import auth from '@/hooks/auth'
+import auth from '@/common/auth'
 import Index from '@/views/index'
 import Components from '@/views/components'
 import Register from '@/views/login'
 import Login from '@/views/login'
 import About from '@/views/about'
 
-// 所有页面都有 footer, 放在 Router 之外了
+// 由于所有页面都有 footer, 就放在 Router 之外了
 import Footer from '@/components/footer'
 
 // 阻止 react-query 激活刷新

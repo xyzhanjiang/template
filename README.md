@@ -1,6 +1,6 @@
 # react-bulma-admin
 
-![axios version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/axios) ![bulma version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/bulma) ![react version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/react) ![react-router version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/react-router-dom) ![redux version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/redux) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/xyzhanjiang/react-bulma-admin/pulls)
+![axios version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/axios) ![bulma version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/bulma) ![react version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/react) ![react-router version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/react-router-dom) ![redux version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/@reduxjs/toolkit) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/xyzhanjiang/react-bulma-admin/pulls)
 
 React 试玩，练手项目/For practising, for my work
 
@@ -39,13 +39,13 @@ project-name
 |- index.html
 |- package.json
 |- /src
-  |- app.js
-  |- index.js
+  |- app.js      // the main application component
+  |- index.js    // the entry point file for the application
   |- /actions
   |- /components
   |- /containers
-  |- /css
+  |- /css        // styles
   |- /images
-  |- /reducers   // Redux reducers
-  |- /views      // Page component
+  |- /reducers   // redux reducers
+  |- /views      // page components
 ```

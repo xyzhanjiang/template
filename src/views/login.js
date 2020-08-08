@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
-import auth from '@/hooks/auth'
+import auth from '@/common/auth'
 
 export default function Login() {
   const [name, setName] = React.useState('')

@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, Link, useHistory } from 'react-router-dom'
 
-import auth from '@/hooks/auth'
+import auth from '@/common/auth'
 import logo from '@/images/logo.png'
 
 export default function Nav() {
@@ -58,7 +58,11 @@ export default function Nav() {
           <div className="navbar-item has-dropdown is-hoverable">
             <a className="navbar-link">
               <figure className="image is-32x32">
-                <img alt="avatar" className="is-rounded" src={logo}/>
+                <img
+                  alt="avatar"
+                  className="is-rounded"
+                  src={logo}
+                  style={{ maxHeight: 'none' }}/>
               </figure>
               <span>&nbsp;by.Genesis</span>
             </a>

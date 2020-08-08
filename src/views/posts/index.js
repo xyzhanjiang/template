@@ -5,7 +5,7 @@ import {
   useRouteMatch
 } from 'react-router-dom'
 
-import List from '@/containers/posts/list'
+import List from './list'
 import Post from './post'
 import Add from './add'
 
