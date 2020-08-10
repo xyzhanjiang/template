@@ -44,6 +44,7 @@ const postsSlice = createSlice({
     status: 'idle',
     error: null,
     page: 1,
+    selectedId: -1,
     isSubmitting: false
   },
   reducers: {
@@ -62,7 +63,10 @@ const postsSlice = createSlice({
     postDeleted(state, action) {
       state.items = state.items.filter(post => post.id !== action.payload)
     },
-    toPage(state, action) {
+    setSelectedId(state, action) {
+      state.selectedId = action.payload
+    },
+    pageUpdated(state, action) {
       state.page = action.payload
     }
   },
@@ -99,7 +103,10 @@ const postsSlice = createSlice({
   }
 })
 
-export const { postAdded, postUpdated, postDeleted, toPage } = postsSlice.actions
+export const {
+  postAdded, postUpdated,
+  postDeleted, setSelectedId, pageUpdated
+} = postsSlice.actions
 
 export default postsSlice.reducer
 

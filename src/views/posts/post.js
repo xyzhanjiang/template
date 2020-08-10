@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
 
-import { selectPostById } from '@/features/posts/postsSlice'
+import { selectPostById } from './postsSlice'
 import { formatDate, formatContent } from '@/common/util'
 import avatar from '@/images/logo.png'
 

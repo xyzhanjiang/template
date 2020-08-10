@@ -1,9 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { editPost } from './postsSlice'
+import { editPost, setSelectedId } from './postsSlice'
 
-export const PostModal = ({ item, setSelectedId, setModalShown }) => {
+export const PostModal = ({ item, setModalShown }) => {
   const [title, setTitle] = React.useState(item.title)
   const [body, setBody] = React.useState(item.body)
 
@@ -16,7 +16,7 @@ export const PostModal = ({ item, setSelectedId, setModalShown }) => {
 
   const closeModal = () => {
     setModalShown(false)
-    setSelectedId(-1)
+    dispatch(setSelectedId(-1))
   }
 
   const edit = async (e) => {

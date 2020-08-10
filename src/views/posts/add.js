@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { Link, useHistory } from 'react-router-dom'
 
-import { addPost } from '@/features/posts/postsSlice'
+import { addPost } from './postsSlice'
 
 export default function PostAdd() {
   const [title, setTitle] = React.useState('')

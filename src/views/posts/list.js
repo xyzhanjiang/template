@@ -1,10 +1,15 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useRouteMatch, Link } from 'react-router-dom'
 
-import { fetchPosts, selectPostById, toPage } from '@/features/posts/postsSlice'
-import { PostsList } from '@/features/posts/PostsList'
-import { PostModal } from '@/features/posts/PostModal'
+import {
+  selectAllPosts, delPost,
+  postDeleted, setSelectedId,
+  fetchPosts, selectPostById,
+  pageUpdated
+} from './postsSlice'
+import { PostModal } from './PostModal'
+import Checkbox from '@/components/checkbox'
 import Pagination from '@/components/pagination'
 import Modal from '@/components/modal'
 
@@ -13,22 +18,46 @@ import { pageSize } from '@/config'
 const totalCount = 100
 
 export default function Index() {
-  const [selectedId, setSelectedId] = React.useState(-1)
   const [isModalShown, setModalShown] = React.useState(false)
 
   const status = useSelector(state => state.posts.status)
   const error = useSelector(state => state.posts.error)
+  const items = useSelector(selectAllPosts)
+  const selectedId = useSelector(state => state.posts.selectedId)
   const item = useSelector(state => selectPostById(state, selectedId))
   const page = useSelector(state => state.posts.page)
 
   const dispatch = useDispatch()
+  const match = useRouteMatch()
 
   // 定义 setPage 函数传给 Pagination 组件
-  const setPage = (page) => dispatch(toPage(page))
+  const setPage = (_page) => {
+    if (page !== _page) {
+      dispatch(pageUpdated(_page))
+      dispatch(fetchPosts(_page))
+    }
+  }
+
+  const del = async (item) => {
+    if (!window.confirm('Sure?')) return
+    await dispatch(delPost(item.id))
+    dispatch(postDeleted(item.id))
+  }
+
+  // 点击编辑按钮展示当前选中 item
+  // 弹框展示
+  const onViewClicked = (id) => {
+    dispatch(setSelectedId(id))
+    setModalShown(true)
+  }
+
+  const onSearch = () => {
+    alert('Constructing!')
+  }
 
   React.useEffect(() => {
     dispatch(fetchPosts(page))
-  }, [page])
+  }, [])
 
   return (
     <>
@@ -39,11 +68,11 @@ export default function Index() {
           <li className="is-active"><a href="#" aria-current="page">List</a></li>
         </ul>
       </nav>
-      {status === 'loading' ? (
+      {status === 'loading' && items.length === 0 ? (
         <div>Loading...</div>
       ) : status === 'failed' ? (
-        <div>{error.message}</div>
-      ) : status === 'successed' && <>
+        <div>{error}</div>
+      ) : <>
         <nav className="level">
           <div className="level-left">
             <div className="level-item">
@@ -57,24 +86,82 @@ export default function Index() {
                   <input className="input" type="text" placeholder="Find a post" />
                 </p>
                 <p className="control">
-                  <button className="button is-link">Search</button>
+                  <button
+                    className="button is-link"
+                    onClick={onSearch}>Search</button>
                 </p>
               </div>
             </div>
           </div>
 
           <div className="level-right">
-            <p className="level-item"><strong>All</strong></p>
-            <p className="level-item"><a>Published</a></p>
-            <p className="level-item"><a>Drafts</a></p>
-            <p className="level-item"><a>Deleted</a></p>
             <p className="level-item">
               <Link className="button is-success" to="/posts/add">New</Link>
             </p>
           </div>
         </nav>
         <div className="content">
-          <PostsList setSelectedId={setSelectedId} setModalShown={setModalShown}/>
+          <table className="table is-fullwidth is-striped">
+            <thead>
+              <tr>
+                <th>
+                  <div className="pt-1">
+                    <Checkbox>
+                      <input type="checkbox"/>
+                    </Checkbox>
+                  </div>
+                </th>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Name</th>
+                <th>Comments</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((item) => (
+                <tr key={item.id}>
+                  <th>
+                    <div className="pt-1">
+                      <Checkbox>
+                        <input checked={item.selected} type="checkbox"/>
+                      </Checkbox>
+                    </div>
+                  </th>
+                  <td>{item.id}</td>
+                  <td><Link to={`${match.path}/${item.id}`}>{item.title}</Link></td>
+                  <td>{item.user?.name}</td>
+                  <td>{item.comments?.length ?? 0}</td>
+                  <td>
+                    <div className="buttons">
+                      <a
+                        onClick={(e) => {
+                          e.preventDefault()
+                          onViewClicked(item.id)
+                        }}
+                        className="button is-small is-link"
+                        href="#">
+                        <span className="icon is-small">
+                          <i className="fa fa-edit"></i>
+                        </span>
+                      </a>
+                      <a
+                        onClick={(e) => {
+                          e.preventDefault()
+                          del(item)
+                        }}
+                        className="button is-small is-danger"
+                        href="#">
+                        <span className="icon is-small">
+                          <i className="fa fa-times"></i>
+                        </span>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
         <div className="columns">
           <div className="column">
@@ -83,20 +170,17 @@ export default function Index() {
             </div>
           </div>
           <div className="column">
-            <div className="is-centered">
-              <Pagination
-                page={page}
-                setPage={setPage}
-                totalPage={Math.ceil(totalCount / pageSize)}
-              />
-            </div>
+            <Pagination
+              page={page}
+              setPage={setPage}
+              totalPage={Math.ceil(totalCount / pageSize)}
+            />
           </div>
         </div>
       </>}
       <Modal isShown={isModalShown}>
         {item && <PostModal
           item={item}
-          setSelectedId={setSelectedId}
           setModalShown={setModalShown}/>}
       </Modal>
     </>

@@ -25,12 +25,21 @@
 }
 
 /* Modal effect */
+.modal {
+  display: flex;
+  visibility: hidden;
+}
+
+.modal.is-active {
+  visibility: visible;
+}
+
 .modal-fx-fade .modal-background {
   opacity: 0;
   transition: opacity .3s;
 }
 
-.modal-fx-fade.is-in .modal-background {
+.modal-fx-fade.is-active .modal-background {
   opacity: 1;
 }
 
@@ -40,7 +49,7 @@
   transition: all .3s;
 }
 
-.modal-fx-fade.is-in .modal-card {
+.modal-fx-fade.is-active .modal-card {
   opacity: 1;
   transform: scale(1);
 }
