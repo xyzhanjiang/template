@@ -6,6 +6,8 @@ import {
   selectAllPosts, delPost,
   postDeleted, setSelectedId,
   fetchPosts, selectPostById,
+  selectOne, unSelectOne,
+  selectAll, unSelectAll,
   pageUpdated
 } from './postsSlice'
 import { PostModal } from './PostModal'
@@ -24,6 +26,7 @@ export default function Index() {
   const error = useSelector(state => state.posts.error)
   const items = useSelector(selectAllPosts)
   const selectedId = useSelector(state => state.posts.selectedId)
+  const selectedIds = useSelector(state => state.posts.selectedIds)
   const item = useSelector(state => selectPostById(state, selectedId))
   const page = useSelector(state => state.posts.page)
 
@@ -31,10 +34,11 @@ export default function Index() {
   const match = useRouteMatch()
 
   // 定义 setPage 函数传给 Pagination 组件
-  const setPage = (_page) => {
+  const setPage = async (_page) => {
     if (page !== _page) {
       dispatch(pageUpdated(_page))
-      dispatch(fetchPosts(_page))
+      await dispatch(fetchPosts(_page))
+      dispatch(unSelectAll()) // 同时清空勾选
     }
   }
 
@@ -53,6 +57,22 @@ export default function Index() {
 
   const onSearch = () => {
     alert('Constructing!')
+  }
+
+  const onSelectAll = e => {
+    if (e.target.checked) {
+      dispatch(selectAll())
+    } else {
+      dispatch(unSelectAll())
+    }
+  }
+
+  const onSelectOne = (e, id) => {
+    if (e.target.checked) {
+      dispatch(selectOne(id))
+    } else {
+      dispatch(unSelectOne(id))
+    }
   }
 
   React.useEffect(() => {
@@ -107,7 +127,10 @@ export default function Index() {
                 <th>
                   <div className="pt-1">
                     <Checkbox>
-                      <input type="checkbox"/>
+                      <input
+                        checked={selectedIds.length === pageSize}
+                        onChange={onSelectAll}
+                        type="checkbox"/>
                     </Checkbox>
                   </div>
                 </th>
@@ -124,7 +147,10 @@ export default function Index() {
                   <th>
                     <div className="pt-1">
                       <Checkbox>
-                        <input checked={item.selected} type="checkbox"/>
+                        <input
+                          checked={selectedIds.includes(item.id)}
+                          onChange={(e) => onSelectOne(e, item.id)}
+                          type="checkbox"/>
                       </Checkbox>
                     </div>
                   </th>

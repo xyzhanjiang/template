@@ -53,3 +53,11 @@
   opacity: 1;
   transform: scale(1);
 }
+
+.fx-fade {
+  display: none;
+}
+
+.fx-fade.is-active {
+  display: block;
+}

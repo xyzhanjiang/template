@@ -45,6 +45,7 @@ const postsSlice = createSlice({
     error: null,
     page: 1,
     selectedId: -1,
+    selectedIds: [], // 勾选状态保存在一个数组中
     isSubmitting: false
   },
   reducers: {
@@ -65,6 +66,18 @@ const postsSlice = createSlice({
     },
     setSelectedId(state, action) {
       state.selectedId = action.payload
+    },
+    selectOne(state, action) {
+      state.selectedIds.push(action.payload)
+    },
+    unSelectOne(state, action) {
+      state.selectedIds.splice(state.selectedIds.indexOf(action.payload), 1)
+    },
+    selectAll(state) {
+      state.selectedIds = state.items.map(item => item.id)
+    },
+    unSelectAll(state) {
+      state.selectedIds = []
     },
     pageUpdated(state, action) {
       state.page = action.payload
@@ -105,7 +118,10 @@ const postsSlice = createSlice({
 
 export const {
   postAdded, postUpdated,
-  postDeleted, setSelectedId, pageUpdated
+  postDeleted, setSelectedId,
+  selectOne, unSelectOne,
+  selectAll, unSelectAll,
+  pageUpdated
 } = postsSlice.actions
 
 export default postsSlice.reducer

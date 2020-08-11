@@ -26,11 +26,14 @@ export default function Menu() {
       </p>
       <ul className="menu-list">
         <li>
-          <a>
+          <NavLink
+            activeClassName="is-active"
+            exact
+            to="/settings">
             <span className="icon is-small">
               <i className="fa fa-cog"></i>
             </span> Settings
-          </a>
+          </NavLink>
         </li>
         <li>
           <a>

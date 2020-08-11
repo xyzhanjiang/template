@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import Nav from '@/components/nav'
 import Menu from '@/components/menu'
 import Dashboard from '@/views/dashboard'
+import Settings from '@/views/settings'
 import Users from '@/views/users'
 import Posts from '@/views/posts'
 import Form from '@/views/form'
@@ -22,6 +23,9 @@ export default function Login() {
           </div>
           <div className="column is-10">
             <Switch>
+              <Route path="/settings">
+                <Settings/>
+              </Route>
               <Route path="/users">
                 <Users/>
               </Route>
