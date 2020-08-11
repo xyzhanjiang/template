@@ -1,106 +1,63 @@
-import React, { useEffect } from 'react'
-import { useRouteMatch, Link, useLocation } from 'react-router-dom'
-import axios from 'axios'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useRouteMatch, Link } from 'react-router-dom'
 
+import {
+  selectAllPosts, delPost,
+  postDeleted, setSelectedId,
+  fetchPosts, selectPostById,
+  pageUpdated
+} from './postsSlice'
+import { PostModal } from './PostModal'
+import Checkbox from '@/components/checkbox'
 import Pagination from '@/components/pagination'
-import Modal from '@/components/Modal/modal'
-import { usePosts } from '@/common'
+import Modal from '@/components/modal'
 
 import { pageSize } from '@/config'
 
-function Item({ item, rowIndex, setModalData }) {
-  let match = useRouteMatch()
-
-  const getPost = (row) => {
-    setModalData({ ...row, rowIndex:  rowIndex})
-  }
-
-  function del(item) {
-    if (!window.confirm('Sure?')) return
-    console.log('Delete complete!')
-  }
-  
-  return (
-    <tr>
-      <td>{item.id}</td>
-      <td><Link to={`${match.path}/${item.id}`}>{item.title}</Link></td>
-      <td>{item.user?.name}</td>
-      <td>{item.comments.length}</td>
-      <td>
-        <div className="buttons">
-          <a
-            onClick={(e) => {
-              e.preventDefault()
-              getPost(item)
-            }}
-            className="button is-small is-link"
-            href="#">
-            <span className="icon is-small">
-              <i className="fa fa-edit"></i>
-            </span>
-          </a>
-          <a
-            onClick={(e) => {
-              e.preventDefault()
-              del(item)
-            }}
-            className="button is-small is-danger"
-            href="#">
-            <span className="icon is-small">
-              <i className="fa fa-times"></i>
-            </span>
-          </a>
-        </div>
-      </td>
-    </tr>
-  )
-}
+const totalCount = 100
 
 export default function Index() {
-  const [page, setPage] = React.useState(1)
-  const [modalData, setModalData] = React.useState({})
+  const [isModalShown, setModalShown] = React.useState(false)
 
-  const {error, isLoading, data, setData} = usePosts(page)
+  const status = useSelector(state => state.posts.status)
+  const error = useSelector(state => state.posts.error)
+  const items = useSelector(selectAllPosts)
+  const selectedId = useSelector(state => state.posts.selectedId)
+  const item = useSelector(state => selectPostById(state, selectedId))
+  const page = useSelector(state => state.posts.page)
 
-  const submitModal = (row) => {
-    setData(data => {
-      let data2 = [...data.posts]
-      data2[+row.rowIndex - 1] = modalData
-      return {
-        posts: data2,
-        totalCount: data.totalCount
-      }
-    })
+  const dispatch = useDispatch()
+  const match = useRouteMatch()
+
+  // 定义 setPage 函数传给 Pagination 组件
+  const setPage = (_page) => {
+    if (page !== _page) {
+      dispatch(pageUpdated(_page))
+      dispatch(fetchPosts(_page))
+    }
   }
 
-  let con = <div className="columns">
-    <div className="column is-5">
-      <div className="field">
-        <label className="label">title</label>
-        <div className="control">
-          <input
-            className="input"
-            value={modalData?.title ?? ''}
-            type="text"
-            placeholder="Text input"
-            onChange={({ target }) => setModalData(modalData => {return  {...modalData, title: target.value}})}
-          />
-        </div>
-      </div>
-      <div className="field">
-        <label className="label">body</label>
-        <div className="control">
-          <input
-            className="input"
-            value={modalData?.body ?? ''}
-            type="text"
-            placeholder="Text input"
-            onChange={({ target }) => setModalData(modalData => {return  {...modalData, body: target.value}})}
-          />
-        </div>
-      </div>
-    </div>
-  </div>
+  const del = async (item) => {
+    if (!window.confirm('Sure?')) return
+    await dispatch(delPost(item.id))
+    dispatch(postDeleted(item.id))
+  }
+
+  // 点击编辑按钮展示当前选中 item
+  // 弹框展示
+  const onViewClicked = (id) => {
+    dispatch(setSelectedId(id))
+    setModalShown(true)
+  }
+
+  const onSearch = () => {
+    alert('Constructing!')
+  }
+
+  React.useEffect(() => {
+    dispatch(fetchPosts(page))
+  }, [])
 
   return (
     <>
@@ -111,16 +68,16 @@ export default function Index() {
           <li className="is-active"><a href="#" aria-current="page">List</a></li>
         </ul>
       </nav>
-      {isLoading ? (
+      {status === 'loading' && items.length === 0 ? (
         <div>Loading...</div>
-      ) : error ? (
-        <div>{error.message}</div>
+      ) : status === 'failed' ? (
+        <div>{error}</div>
       ) : <>
         <nav className="level">
           <div className="level-left">
             <div className="level-item">
               <p className="subtitle is-5">
-                <strong>{data.totalCount}</strong> posts
+                <strong>{totalCount}</strong> posts
               </p>
             </div>
             <div className="level-item">
@@ -129,17 +86,15 @@ export default function Index() {
                   <input className="input" type="text" placeholder="Find a post" />
                 </p>
                 <p className="control">
-                  <button className="button is-link">Search</button>
+                  <button
+                    className="button is-link"
+                    onClick={onSearch}>Search</button>
                 </p>
               </div>
             </div>
           </div>
 
           <div className="level-right">
-            <p className="level-item"><strong>All</strong></p>
-            <p className="level-item"><a>Published</a></p>
-            <p className="level-item"><a>Drafts</a></p>
-            <p className="level-item"><a>Deleted</a></p>
             <p className="level-item">
               <Link className="button is-success" to="/posts/add">New</Link>
             </p>
@@ -149,6 +104,13 @@ export default function Index() {
           <table className="table is-fullwidth is-striped">
             <thead>
               <tr>
+                <th>
+                  <div className="pt-1">
+                    <Checkbox>
+                      <input type="checkbox"/>
+                    </Checkbox>
+                  </div>
+                </th>
                 <th>ID</th>
                 <th>Title</th>
                 <th>Name</th>
@@ -157,8 +119,46 @@ export default function Index() {
               </tr>
             </thead>
             <tbody>
-              {data.posts.map((item) => (
-                <Item item={item} key={item.id} rowIndex={item.id} setModalData={setModalData} />
+              {items.map((item) => (
+                <tr key={item.id}>
+                  <th>
+                    <div className="pt-1">
+                      <Checkbox>
+                        <input checked={item.selected} type="checkbox"/>
+                      </Checkbox>
+                    </div>
+                  </th>
+                  <td>{item.id}</td>
+                  <td><Link to={`${match.path}/${item.id}`}>{item.title}</Link></td>
+                  <td>{item.user?.name}</td>
+                  <td>{item.comments?.length ?? 0}</td>
+                  <td>
+                    <div className="buttons">
+                      <a
+                        onClick={(e) => {
+                          e.preventDefault()
+                          onViewClicked(item.id)
+                        }}
+                        className="button is-small is-link"
+                        href="#">
+                        <span className="icon is-small">
+                          <i className="fa fa-edit"></i>
+                        </span>
+                      </a>
+                      <a
+                        onClick={(e) => {
+                          e.preventDefault()
+                          del(item)
+                        }}
+                        className="button is-small is-danger"
+                        href="#">
+                        <span className="icon is-small">
+                          <i className="fa fa-times"></i>
+                        </span>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>
@@ -166,21 +166,23 @@ export default function Index() {
         <div className="columns">
           <div className="column">
             <div className="has-text-primary">
-              Showing {(page - 1) * pageSize + 1} to {page * pageSize} of {data.totalCount} posts
+              Showing {(page - 1) * pageSize + 1} to {page * pageSize} of {totalCount} posts
             </div>
           </div>
           <div className="column">
-            <div className="is-centered">
-              <Pagination
-                page={page}
-                setPage={setPage}
-                totalPage={Math.ceil(data.totalCount / pageSize)}
-              />
-            </div>
+            <Pagination
+              page={page}
+              setPage={setPage}
+              totalPage={Math.ceil(totalCount / pageSize)}
+            />
           </div>
         </div>
       </>}
-      <Modal content={con} modalData={modalData} submitModal={submitModal}></Modal>
+      <Modal isShown={isModalShown}>
+        {item && <PostModal
+          item={item}
+          setModalShown={setModalShown}/>}
+      </Modal>
     </>
   )
 }

@@ -1,0 +1,40 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:compat/recommended",
+    "plugin:flowtype/recommended"
+  ],
+  "plugins": [
+    "flowtype",
+    "compat",
+    "react"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "rules": {
+    "semi": [2, "never"],
+    "react/prop-types": [0],
+    "compat/compat": 2
+  },
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect",
+      "flowVersion": "0.53"
+    },
+    "polyfills": [
+      "Promise"
+    ]
+  }
+}

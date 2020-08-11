@@ -32,7 +32,11 @@ export default function Modal({ content, modalData, submitModal }) {
           {content}
         </section>
         <footer className="modal-card-foot">
-          <button className="button is-success" onClick={() => {setShown(false); submitModal(modalData)}}>Save changes</button>
+          <button
+            className="button is-success"
+            onClick={() => {setShown(false); submitModal(modalData)}}>
+            Save changes
+          </button>
           <button className="button" onClick={() => setShown(false)}>Cancel</button>
         </footer>
       </div>

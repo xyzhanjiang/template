@@ -1,38 +1,33 @@
 import React from 'react'
-import { useParams, useRouteMatch } from 'react-router-dom'
-import axios from 'axios'
-import { useMutation, queryCache } from 'react-query'
+import { useSelector } from 'react-redux'
+import { useParams, Link } from 'react-router-dom'
 
-import usePost from '@/hooks/post'
+import { selectPostById } from './postsSlice'
 import { formatDate, formatContent } from '@/common/util'
 import avatar from '@/images/logo.png'
 
-function Comment({ item, id }) {
-  function delComment(comment) {
-    if (!window.confirm('Sure?')) return
-    mutate(comment)
+export default function Post() {
+  const { id } = useParams()
+
+  const item = useSelector(state => selectPostById(state, +id))
+
+  const [content, setContent] = React.useState('')
+  const [isSubmitting, setSubmitting] = React.useState(false)
+
+  const addComment = (e) => {
+    e.preventDefault()
+    setSubmitting(true)
+    setSubmitting(false)
   }
 
-  const [mutate] = useMutation((comment) => {
-    return axios.delete(`/comments/${comment.id}`)
-  }, {
-    onMutate: (comment) => {
-      queryCache.cancelQueries(['post', id])
+  const delComment = (comment) => {
+    if (!window.confirm('Sure?')) return
+    console.log(comment)
+    console.log('Complete!')
+  }
 
-      const previousValue = queryCache.getQueryData(['post', id])
-      queryCache.setQueryData(['post', id], (old) => {
-        let index = old.comments.indexOf(comment)
-        return {
-          ...old,
-          comments: [...old.comments.slice(0, index), ...old.comments.slice(index + 1)]
-        }
-      })
-      return previousValue
-    }
-  })
-
-  return (
-    <div className="media">
+  const renderComments = (item) => item.comments.map(comment => (
+    <div className="media" key={comment.id}>
       <div className="media-left">
         <p className="image is-64x64">
           <img alt="avatar" src={avatar}/>
@@ -41,11 +36,11 @@ function Comment({ item, id }) {
       <div className="media-content">
         <div className="content">
           <p>
-            <strong>{item.email}</strong>
+            <strong>{comment.email}</strong>
             <br/>
-            {item.body}
+            {comment.body}
             <br/>
-            <small><a>Like</a> · <a>Reply</a> · {formatDate(item.date)}</small>
+            <small><a>Like</a> · <a>Reply</a> · {formatDate(comment.date)}</small>
           </p>
         </div>
       </div>
@@ -53,78 +48,45 @@ function Comment({ item, id }) {
         <button className="delete" onClick={() => delComment(item)} type="button"></button>
       </div>
     </div>
-  )
-}
-
-export default function Post() {
-  const { id } = useParams()
-
-  const { status, data, error, isFetching } = usePost(id)
-
-  const [content, setContent] = React.useState('')
-  const [isSubmitting, setSubmitting] = React.useState(false)
-
-  const [mutate] = useMutation((comment) => {
-    return axios.post('/comments', comment)
-  }, {
-    onMutate: (comment) => {
-      setContent('')
-      queryCache.cancelQueries(['post', id])
-
-      const previousValue = queryCache.getQueryData(['post', id])
-      return previousValue
-    },
-    onSettled: () => {
-      queryCache.invalidateQueries(['post', id])
-    }
-  })
-
-  function addComment(e) {
-    e.preventDefault()
-    mutate({
-      // ?. ES2020 语法，通过 Babel 编译
-      author: user?.name || 'NameLess',
-      content,
-      date: new Date(),
-      postId: +id
-    })
-  }
+  ))
 
   return (
     <>
+      <nav className="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/posts">Posts</Link></li>
+          <li className="is-active"><a href="#" aria-current="page">View</a></li>
+        </ul>
+      </nav>
       <div className="container">
         <div className="column is-8 is-offset-2">
-          {status === 'loading' ? (
-            <div>Loading...</div>
-          ) : status === 'error' ? (
-            <div>{error.message}</div>
+          {!item ? (
+            <h2>Post not found!</h2>
           ) : (
             <>
               <div className="card article">
                 <div className="card-content">
                   <div className="media">
                     <div className="media-content has-text-centered">
-                      <p className="title article-title">{data.title}</p>
+                      <p className="title article-title">{item.title}</p>
                       <div className="tags has-addons level-item">
-                        <span className="tag is-rounded is-info">@{data.user.name}</span>
-                        <span className="tag is-rounded">{formatDate(data.date)}</span>
+                        <span className="tag is-rounded is-info">
+                          @{item.user?.name}
+                          </span>
+                        <span className="tag is-rounded">{formatDate(item.date)}</span>
                       </div>
                     </div>
                   </div>
                   <div
                     className="content article-body"
-                    dangerouslySetInnerHTML={{__html: formatContent(data.body ?? '')}}></div>
+                    dangerouslySetInnerHTML={{__html: formatContent(item.body ?? '')}}>
+                  </div>
                 </div>
               </div>
 
               <div className="box">
-                {data.comments.map((item) => (
-                  <Comment
-                    item={item}
-                    id={id}
-                    key={item.id}/>)
-                )}
-
+                {renderComments(item)}
                 <div className="media">
                   <div className="media-left">
                     <p className="image is-64x64">

@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Modal from './modal'
-
 export default function PageModal() {
   const [isShown, setShown] = React.useState(false)
   return (
