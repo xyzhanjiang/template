@@ -76,7 +76,9 @@ export default function Index() {
   }
 
   React.useEffect(() => {
-    dispatch(fetchPosts(page))
+    if (items.length === 0) {
+      dispatch(fetchPosts(page))
+    }
   }, [])
 
   return (
@@ -89,7 +91,9 @@ export default function Index() {
         </ul>
       </nav>
       {status === 'loading' && items.length === 0 ? (
-        <div>Loading...</div>
+        <div className="app-loading">
+          <div className="app-loading-item">Loading...</div>
+        </div>
       ) : status === 'failed' ? (
         <div>{error}</div>
       ) : <>
@@ -116,7 +120,7 @@ export default function Index() {
 
           <div className="level-right">
             <p className="level-item">
-              <Link className="button is-success" to="/posts/add">New</Link>
+              <Link className="button is-link" to="/posts/add">New</Link>
             </p>
           </div>
         </nav>
@@ -128,7 +132,7 @@ export default function Index() {
                   <div className="pt-1">
                     <Checkbox>
                       <input
-                        checked={selectedIds.length === pageSize}
+                        checked={selectedIds.length === items.length}
                         onChange={onSelectAll}
                         type="checkbox"/>
                     </Checkbox>
@@ -165,7 +169,7 @@ export default function Index() {
                           e.preventDefault()
                           onViewClicked(item.id)
                         }}
-                        className="button is-small is-link"
+                        className="button is-small is-info"
                         href="#">
                         <span className="icon is-small">
                           <i className="fa fa-edit"></i>
@@ -176,7 +180,7 @@ export default function Index() {
                           e.preventDefault()
                           del(item)
                         }}
-                        className="button is-small is-danger"
+                        className="button is-small is-link"
                         href="#">
                         <span className="icon is-small">
                           <i className="fa fa-times"></i>

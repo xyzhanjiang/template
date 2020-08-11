@@ -5,13 +5,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: './src/index.tsx',
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   },
   resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
     alias: {
       '@': path.join(__dirname, 'src')
     }
@@ -57,10 +58,18 @@ module.exports = {
       },
       {
         test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
         }
+      },
+      {
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: 'babel-loader'
+          }
+        ]
       },
       {
         test: /\.(png|jpe?g|gif)$/i,

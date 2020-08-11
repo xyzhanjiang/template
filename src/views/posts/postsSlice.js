@@ -44,9 +44,18 @@ const postsSlice = createSlice({
     status: 'idle',
     error: null,
     page: 1,
+    // 用来表示弹框选中的对应数据
     selectedId: -1,
-    selectedIds: [], // 勾选状态保存在一个数组中
-    isSubmitting: false
+    // 勾选状态保存在一个数组中
+    // 当勾选某条数据的时候向其中添加该条数据的 id 值
+    // 反选的时候则从数组中删除
+    // 当数组的长度与当前条数相等的时候则表示已经全部选中
+    selectedIds: [],
+    // 大于 0 表示有请求正在提交
+    // 每增加一个请求数字加 1
+    // 请求返回之后数字减 1
+    // 不使用布尔值是因为如果先后有两个请求发出会出现逻辑错误
+    isSubmitting: 0
   },
   reducers: {
     postAdded(state, action) {
@@ -95,11 +104,18 @@ const postsSlice = createSlice({
       state.status = 'failed',
       state.error = action.error.message
     },
+    [addPost.pending]: (state) => {
+      state.isSubmitting++
+    },
     [addPost.fulfilled]: (state, action) => {
       state.items.unshift(action.payload)
+      state.isSubmitting--
+    },
+    [addPost.rejected]: (state) => {
+      state.isSubmitting--
     },
     [editPost.pending]: (state) => {
-      state.isSubmitting = true
+      state.isSubmitting++
     },
     [editPost.fulfilled]: (state, action) => {
       const { id, title, body } = action.payload
@@ -108,10 +124,10 @@ const postsSlice = createSlice({
         item.title = title
         item.body = body
       }
-      state.isSubmitting = false
+      state.isSubmitting--
     },
     [editPost.rejected]: (state) => {
-      state.isSubmitting = false
+      state.isSubmitting--
     }
   }
 })
