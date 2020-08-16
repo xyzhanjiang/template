@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // LocalStorange 存储用户 token
-import { storeTokenKey } from '@/config'
+import { storeTokenKey } from '../config'
 
 const user = JSON.parse(localStorage.getItem(storeTokenKey))
 

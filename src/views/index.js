@@ -1,15 +1,15 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
-import Nav from '@/components/nav'
-import Menu from '@/components/menu'
-import Dashboard from '@/views/dashboard'
-import Settings from '@/views/settings'
-import Users from '@/views/users'
-import Posts from '@/views/posts'
-import Form from '@/views/form'
-import Tiles from '@/views/tiles'
-import Buttons from '@/views/Buttons'
+import Nav from '../components/nav'
+import Menu from '../components/menu'
+import Dashboard from './dashboard'
+import Settings from './settings'
+import Users from './users'
+import Posts from './posts'
+import Form from './form'
+import Tiles from './tiles'
+import Buttons from './buttons'
 
 export default function Login() {
 

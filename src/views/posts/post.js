@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
 
 import { selectPostById } from './postsSlice'
-import { formatDate, formatContent } from '@/common/util'
-import avatar from '@/images/logo.png'
+import { formatContent } from '../../common/util'
+import avatar from '../../images/logo.png'
 
 export default function Post() {
   const { id } = useParams()
@@ -40,7 +40,7 @@ export default function Post() {
             <br/>
             {comment.body}
             <br/>
-            <small><a>Like</a> · <a>Reply</a> · {formatDate(comment.date)}</small>
+            <small><a>Like</a> · <a>Reply</a> · {comment.date}</small>
           </p>
         </div>
       </div>
@@ -74,7 +74,7 @@ export default function Post() {
                         <span className="tag is-rounded is-info">
                           @{item.user?.name}
                           </span>
-                        <span className="tag is-rounded">{formatDate(item.date)}</span>
+                        <span className="tag is-rounded">{item.date}</span>
                       </div>
                     </div>
                   </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import ApexCharts from 'apexcharts'
 
-import chartData from '@/data/chart'
+import chartData from '../../data/chart'
 
 export default function Dashboard() {
 

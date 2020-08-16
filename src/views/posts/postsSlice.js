@@ -101,7 +101,7 @@ const postsSlice = createSlice({
       state.items = action.payload
     },
     [fetchPosts.rejected]: (state, action) => {
-      state.status = 'failed',
+      state.status = 'failed'
       state.error = action.error.message
     },
     [addPost.pending]: (state) => {

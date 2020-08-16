@@ -11,11 +11,11 @@ import {
   pageUpdated
 } from './postsSlice'
 import { PostModal } from './PostModal'
-import Checkbox from '@/components/checkbox'
-import Pagination from '@/components/pagination'
-import Modal from '@/components/modal'
+import Checkbox from '../../components/checkbox'
+import Pagination from '../../components/pagination'
+import Modal from '../../components/modal'
 
-import { pageSize } from '@/config'
+import { pageSize } from '../../config'
 
 const totalCount = 100
 

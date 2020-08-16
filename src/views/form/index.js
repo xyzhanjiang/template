@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import Checkbox from '@/components/checkbox'
-import Radio from '@/components/radio'
+import Checkbox from '../../components/checkbox'
+import Radio from '../../components/radio'
 
 export default function Form() {
   return (

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import postsReducer from '@/views/posts/postsSlice'
+import postsReducer from '../views/posts/postsSlice'
 
 // configureStore 会自动调用 combineReducers
 export default configureStore({

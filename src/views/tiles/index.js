@@ -7,7 +7,7 @@ export default function Tiles() {
       <nav className="breadcrumb" aria-label="breadcrumbs">
         <ul>
           <li><Link to="/">Home</Link></li>
-          <li className="is-active"><a href="#" aria-current="page">Tiles</a></li>
+          <li className="is-active"><a aria-current="page">Tiles</a></li>
         </ul>
       </nav>
       <div className="tile is-ancestor">

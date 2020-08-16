@@ -21,7 +21,7 @@ npm install
 **Develop**
 
 ``` shell
-npm run dev
+npm run start
 ```
 
 Visit localhost:8080
@@ -36,8 +36,9 @@ npm run build
 
 ``` diff
 bulma-admin
-|- index.html
 |- package.json
+|- /public
+  |- index.html  // home page
 |- /src
   |- app.js      // the main application component
   |- index.js    // the entry point file for the application

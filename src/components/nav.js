@@ -1,8 +1,8 @@
 import React from 'react'
 import { NavLink, Link, useHistory } from 'react-router-dom'
 
-import auth from '@/common/auth'
-import logo from '@/images/logo.png'
+import auth from '../common/auth'
+import logo from '../images/logo.png'
 
 export default function Nav() {
   const [isNavbarShown, setNavbarShown] = React.useState(false)
