@@ -2,7 +2,7 @@
 
 ![axios version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/axios) ![bulma version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/bulma) ![react version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/react) ![react-router version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/react-router-dom) ![redux version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/@reduxjs/toolkit) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/xyzhanjiang/react-bulma-admin/pulls)
 
-React practising, for my work
+React practising, for my work, [demo](https://xyzhanjiang.github.io/react-bulma-admin/)
 
 * React
 * React-router
