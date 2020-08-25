@@ -56,5 +56,6 @@
   },
   "devDependencies": {
     "sass": "^1.26.10"
-  }
+  },
+  "homepage": "https://xyzhanjiang.github.io/react-bulma-admin/"
 }

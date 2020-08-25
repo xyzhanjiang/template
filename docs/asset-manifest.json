@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/static/css/main.5e381a11.chunk.css",
-    "main.js": "/static/js/main.cb86d221.chunk.js",
-    "main.js.map": "/static/js/main.cb86d221.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.55b7cba1.js",
-    "runtime-main.js.map": "/static/js/runtime-main.55b7cba1.js.map",
-    "static/css/2.ac0f543c.chunk.css": "/static/css/2.ac0f543c.chunk.css",
-    "static/js/2.f60b467d.chunk.js": "/static/js/2.f60b467d.chunk.js",
-    "static/js/2.f60b467d.chunk.js.map": "/static/js/2.f60b467d.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.f8c6e2280acfaa53d72dc4442e428012.js": "/precache-manifest.f8c6e2280acfaa53d72dc4442e428012.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.ac0f543c.chunk.css.map": "/static/css/2.ac0f543c.chunk.css.map",
-    "static/css/main.5e381a11.chunk.css.map": "/static/css/main.5e381a11.chunk.css.map",
-    "static/js/2.f60b467d.chunk.js.LICENSE.txt": "/static/js/2.f60b467d.chunk.js.LICENSE.txt",
-    "static/media/solid.css": "/static/media/fa-solid-900.ee09ad75.woff",
-    "static/media/logo.png": "/static/media/logo.b68e2a18.png"
+    "main.css": "/react-bulma-admin/static/css/main.5e381a11.chunk.css",
+    "main.js": "/react-bulma-admin/static/js/main.15cfcb76.chunk.js",
+    "main.js.map": "/react-bulma-admin/static/js/main.15cfcb76.chunk.js.map",
+    "runtime-main.js": "/react-bulma-admin/static/js/runtime-main.5b1c252f.js",
+    "runtime-main.js.map": "/react-bulma-admin/static/js/runtime-main.5b1c252f.js.map",
+    "static/css/2.8eec6c46.chunk.css": "/react-bulma-admin/static/css/2.8eec6c46.chunk.css",
+    "static/js/2.f60b467d.chunk.js": "/react-bulma-admin/static/js/2.f60b467d.chunk.js",
+    "static/js/2.f60b467d.chunk.js.map": "/react-bulma-admin/static/js/2.f60b467d.chunk.js.map",
+    "index.html": "/react-bulma-admin/index.html",
+    "precache-manifest.4dc0710df062b4f030780afb30662c96.js": "/react-bulma-admin/precache-manifest.4dc0710df062b4f030780afb30662c96.js",
+    "service-worker.js": "/react-bulma-admin/service-worker.js",
+    "static/css/2.8eec6c46.chunk.css.map": "/react-bulma-admin/static/css/2.8eec6c46.chunk.css.map",
+    "static/css/main.5e381a11.chunk.css.map": "/react-bulma-admin/static/css/main.5e381a11.chunk.css.map",
+    "static/js/2.f60b467d.chunk.js.LICENSE.txt": "/react-bulma-admin/static/js/2.f60b467d.chunk.js.LICENSE.txt",
+    "static/media/solid.css": "/react-bulma-admin/static/media/fa-solid-900.ee09ad75.woff",
+    "static/media/logo.png": "/react-bulma-admin/static/media/logo.b68e2a18.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.55b7cba1.js",
-    "static/css/2.ac0f543c.chunk.css",
+    "static/js/runtime-main.5b1c252f.js",
+    "static/css/2.8eec6c46.chunk.css",
     "static/js/2.f60b467d.chunk.js",
     "static/css/main.5e381a11.chunk.css",
-    "static/js/main.cb86d221.chunk.js"
+    "static/js/main.15cfcb76.chunk.js"
   ]
 }
