@@ -5,12 +5,12 @@ export default function Pagination({ page, setPage, totalPage }) {
   const pageNext = page + 1
 
   function prev() {
-    if (page == 1) return
+    if (page === 1) return
     setPage(pagePrev)
   }
 
   function next() {
-    if (page == totalPage) return
+    if (page === totalPage) return
     setPage(pageNext)
   }
 

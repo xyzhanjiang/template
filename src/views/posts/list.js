@@ -3,14 +3,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useRouteMatch, Link } from 'react-router-dom'
 
 import {
-  selectAllPosts, delPost,
+  selectAllPosts, editPost, delPost,
   postDeleted, setSelectedId,
   fetchPosts, selectPostById,
   selectOne, unSelectOne,
   selectAll, unSelectAll,
   pageUpdated
 } from './postsSlice'
-import { PostModal } from './PostModal'
 import Checkbox from '../../components/checkbox'
 import Pagination from '../../components/pagination'
 import Modal from '../../components/modal'
@@ -22,6 +21,10 @@ const totalCount = 100
 export default function Index() {
   const [isModalShown, setModalShown] = React.useState(false)
 
+  // Edit Modal
+  const [title, setTitle] = React.useState('')
+  const [body, setBody] = React.useState('')
+
   const status = useSelector(state => state.posts.status)
   const error = useSelector(state => state.posts.error)
   const items = useSelector(selectAllPosts)
@@ -29,6 +32,7 @@ export default function Index() {
   const selectedIds = useSelector(state => state.posts.selectedIds)
   const item = useSelector(state => selectPostById(state, selectedId))
   const page = useSelector(state => state.posts.page)
+  const isSubmitting = useSelector(state => state.posts.isSubmitting)
 
   const dispatch = useDispatch()
   const match = useRouteMatch()
@@ -50,8 +54,10 @@ export default function Index() {
 
   // 点击编辑按钮展示当前选中 item
   // 弹框展示
-  const onViewClicked = (id) => {
-    dispatch(setSelectedId(id))
+  const onViewClicked = (item) => {
+    dispatch(setSelectedId(item.id))
+    setTitle(item.title)
+    setBody(item.body)
     setModalShown(true)
   }
 
@@ -75,6 +81,30 @@ export default function Index() {
     }
   }
 
+  const onTitleChanged = e => setTitle(e.target.value)
+  const onBodyChanged = e => setBody(e.target.value)
+
+  // 关闭编辑框的时候同时重置选中 ID
+  const closeModal = () => {
+    setModalShown(false)
+    dispatch(setSelectedId(-1))
+  }
+
+  const edit = async (e) => {
+    e.preventDefault()
+
+    try {
+      await dispatch(editPost({
+        id: item.id,
+        title,
+        body
+      }))
+      closeModal()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   React.useEffect(() => {
     if (items.length === 0) {
       dispatch(fetchPosts(page))
@@ -91,9 +121,7 @@ export default function Index() {
         </ul>
       </nav>
       {status === 'loading' && items.length === 0 ? (
-        <div className="app-loading">
-          <div className="app-loading-item">Loading...</div>
-        </div>
+        <div>Loading...</div>
       ) : status === 'failed' ? (
         <div>{error}</div>
       ) : <>
@@ -167,7 +195,7 @@ export default function Index() {
                       <a
                         onClick={(e) => {
                           e.preventDefault()
-                          onViewClicked(item.id)
+                          onViewClicked(item)
                         }}
                         className="button is-small is-info"
                         href="#">
@@ -209,9 +237,53 @@ export default function Index() {
         </div>
       </>}
       <Modal isShown={isModalShown}>
-        {item && <PostModal
-          item={item}
-          setModalShown={setModalShown}/>}
+        <div className="modal-background"></div>
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">Edit Post</p>
+            <button className="delete" aria-label="close"
+              onClick={closeModal}></button>
+          </header>
+          <section className="modal-card-body">
+            <div className="columns">
+              <div className="column">
+                <div className="field">
+                  <label className="label">Title</label>
+                  <div className="control">
+                    <input
+                      className="input"
+                      value={title}
+                      type="text"
+                      placeholder="Title"
+                      onChange={onTitleChanged}
+                    />
+                  </div>
+                </div>
+                <div className="field">
+                  <label className="label">Content</label>
+                  <div className="control">
+                    <textarea
+                      className="textarea"
+                      value={body}
+                      placeholder="Content"
+                      onChange={onBodyChanged}>
+                    </textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <footer className="modal-card-foot">
+            <button
+              className={`button is-link${isSubmitting ? ' is-loading' : ''}`}
+              onClick={edit}
+              type="submit">
+              Save changes
+            </button>
+            <button className="button"
+              onClick={closeModal} type="button">Cancel</button>
+          </footer>
+        </div>
       </Modal>
     </>
   )

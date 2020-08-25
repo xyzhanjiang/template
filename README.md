@@ -24,7 +24,7 @@ npm install
 npm run start
 ```
 
-Visit localhost:8080
+Visit localhost:3000
 
 **Build**
 

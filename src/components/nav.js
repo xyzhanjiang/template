@@ -42,12 +42,6 @@ export default function Nav() {
             <span className="icon is-medium"><i className="fa fa-home"></i></span>
             Home
           </NavLink>
-          <NavLink
-            activeClassName="is-active"
-            className="navbar-item is-tab"
-            to="/components">
-            Components
-          </NavLink>
           <Link
             className="navbar-item is-tab"
             to="/about">

@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Redirect
@@ -9,7 +9,6 @@ import { ReactQueryConfigProvider } from 'react-query'
 
 import auth from './common/auth'
 import Index from './views/index'
-import Components from './views/components'
 import Register from './views/login'
 import Login from './views/login'
 import About from './views/about'
@@ -43,9 +42,6 @@ export default function App() {
     <ReactQueryConfigProvider config={queryConfig}>
       <Router>
         <Switch>
-          <Route path="/components">
-            <Components/>
-          </Route>
           <Route path="/register">
             <Register/>
           </Route>

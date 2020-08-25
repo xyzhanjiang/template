@@ -11,7 +11,7 @@ import { pageSize } from '../../config'
 
 function Item({ item, index, setSelectedIndex }) {
 
-  function del(item) {
+  const del = (item) => {
     if (!window.confirm('Sure?')) return
     console.log(item)
     console.log('Delete complete!')
@@ -39,7 +39,7 @@ function Item({ item, index, setSelectedIndex }) {
               e.preventDefault()
               setSelectedIndex(index)
             }}
-            className="button is-small is-link"
+            className="button is-small is-info"
             href="#">
             <span className="icon is-small">
               <i className="fa fa-edit"></i>
@@ -89,7 +89,7 @@ export default function List() {
 
   const user = resolvedData?.users[selectedIndex]
 
-  function edit() {
+  const edit = () => {
     console.log('Edit')
   }
 
