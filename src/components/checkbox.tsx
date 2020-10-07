@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Checkbox({ children }) {
+export default function Checkbox({ children }: { children: any }) {
   return (
     <label className="by-checkbox">
       {children}

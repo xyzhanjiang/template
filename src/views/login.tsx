@@ -2,6 +2,7 @@ import React from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import auth from '../common/auth'
+import { NAME_RULE, PASSWORD_RULE } from '../config'
 
 export default function Login() {
   const [name, setName] = React.useState('')
@@ -9,9 +10,9 @@ export default function Login() {
   const history = useHistory()
   const location = useLocation()
 
-  const { from } = location.state || { from: { pathname: '/' } }
+  const { from } = location.state as any || { from: { pathname: '/' } }
 
-  function login(e) {
+  function login(e: any) {
     e.preventDefault()
     auth.authenticate({
       name,
@@ -32,9 +33,13 @@ export default function Login() {
               <div className="control">
                 <input
                   className="input is-medium"
+                  maxLength={20}
+                  pattern={NAME_RULE.rule}
                   required
                   type="text"
                   onChange={({ target }) => setName(target.value)}
+                  onInput={({ target }: { target: any }) => target.setCustomValidity('')}
+                  onInvalid={({ target }: { target: any }) => target.setCustomValidity(NAME_RULE.message)}
                   placeholder="Name"/>
               </div>
             </div>
@@ -42,8 +47,13 @@ export default function Login() {
               <div className="control">
                 <input
                   className="input is-medium"
+                  maxLength={20}
+                  pattern={PASSWORD_RULE.rule}
+                  required
                   type="password"
                   onChange={({ target }) => setPassword(target.value)}
+                  onInput={({ target }: { target: any }) => target.setCustomValidity('')}
+                  onInvalid={({ target }: { target: any }) => target.setCustomValidity(PASSWORD_RULE.message)}
                   placeholder="Password"/>
               </div>
             </div>

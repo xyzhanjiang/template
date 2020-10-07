@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Radio({ children }) {
+export default function Radio({ children }: { children: any }) {
   return (
     <label className="by-radio radio">
       {children}

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Modal(props) {
+export default function Modal(props: any) {
   const modal = React.useRef(null)
   React.useEffect(() => {
     // TODO 抖动

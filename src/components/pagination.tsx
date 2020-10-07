@@ -1,6 +1,10 @@
 import React from 'react'
 
-export default function Pagination({ page, setPage, totalPage }) {
+export default function Pagination({ page, setPage, totalPage }: {
+  page: number;
+  setPage: Function;
+  totalPage: number;
+}) {
   const pagePrev = page - 1
   const pageNext = page + 1
 

@@ -3,12 +3,12 @@ import axios from 'axios'
 // LocalStorange 存储用户 token
 import { storeTokenKey } from '../config'
 
-const user = JSON.parse(localStorage.getItem(storeTokenKey))
+const user = JSON.parse(localStorage.getItem(storeTokenKey) as string)
 
 // TODO 没有发送请求
 const auth = {
   isAuthenticated: false,
-  async authenticate(user) {
+  async authenticate(user: any) {
     auth.isAuthenticated = true
     axios.defaults.headers.common['Authorization'] = user.token
     localStorage.setItem(storeTokenKey, JSON.stringify(user))
