@@ -20,7 +20,7 @@ import Footer from './components/footer'
 const queryConfig = { queries: { refetchOnWindowFocus: false } }
 
 // 未认证跳转登录页
-function PrivateRoute({ children, ...rest }) {
+function PrivateRoute({ children, ...rest }: any) {
   return (
     <Route
       {...rest}

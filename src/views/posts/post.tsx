@@ -14,19 +14,19 @@ export default function Post() {
   const [content, setContent] = React.useState('')
   const [isSubmitting, setSubmitting] = React.useState(false)
 
-  const addComment = (e) => {
+  const addComment = (e: any) => {
     e.preventDefault()
     setSubmitting(true)
     setSubmitting(false)
   }
 
-  const delComment = (comment) => {
+  const delComment = (comment: any) => {
     if (!window.confirm('Sure?')) return
     console.log(comment)
     console.log('Complete!')
   }
 
-  const renderComments = (item) => item.comments.map(comment => (
+  const renderComments = (item: any) => item.comments.map((comment: any) => (
     <div className="media" key={comment.id}>
       <div className="media-left">
         <p className="image is-64x64">

@@ -25,20 +25,20 @@ export default function Index() {
   const [title, setTitle] = React.useState('')
   const [body, setBody] = React.useState('')
 
-  const status = useSelector(state => state.posts.status)
-  const error = useSelector(state => state.posts.error)
+  const status = useSelector((state: any) => state.posts.status)
+  const error = useSelector((state: any) => state.posts.error)
   const items = useSelector(selectAllPosts)
-  const selectedId = useSelector(state => state.posts.selectedId)
-  const selectedIds = useSelector(state => state.posts.selectedIds)
-  const item = useSelector(state => selectPostById(state, selectedId))
-  const page = useSelector(state => state.posts.page)
-  const isSubmitting = useSelector(state => state.posts.isSubmitting)
+  const selectedId = useSelector((state: any) => state.posts.selectedId)
+  const selectedIds = useSelector((state: any) => state.posts.selectedIds)
+  const item = useSelector((state: any) => selectPostById(state, selectedId))
+  const page = useSelector((state: any) => state.posts.page)
+  const isSubmitting = useSelector((state: any) => state.posts.isSubmitting)
 
   const dispatch = useDispatch()
   const match = useRouteMatch()
 
   // 定义 setPage 函数传给 Pagination 组件
-  const setPage = async (_page) => {
+  const setPage = async (_page: number) => {
     if (page !== _page) {
       dispatch(pageUpdated(_page))
       await dispatch(fetchPosts(_page))
@@ -46,7 +46,7 @@ export default function Index() {
     }
   }
 
-  const del = async (item) => {
+  const del = async (item: any) => {
     if (!window.confirm('Sure?')) return
     await dispatch(delPost(item.id))
     dispatch(postDeleted(item.id))
@@ -54,7 +54,7 @@ export default function Index() {
 
   // 点击编辑按钮展示当前选中 item
   // 弹框展示
-  const onViewClicked = (item) => {
+  const onViewClicked = (item: any) => {
     dispatch(setSelectedId(item.id))
     setTitle(item.title)
     setBody(item.body)
@@ -65,7 +65,7 @@ export default function Index() {
     alert('Constructing!')
   }
 
-  const onSelectAll = e => {
+  const onSelectAll = (e: any) => {
     if (e.target.checked) {
       dispatch(selectAll())
     } else {
@@ -73,7 +73,7 @@ export default function Index() {
     }
   }
 
-  const onSelectOne = (e, id) => {
+  const onSelectOne = (e: any, id: number) => {
     if (e.target.checked) {
       dispatch(selectOne(id))
     } else {
@@ -81,8 +81,8 @@ export default function Index() {
     }
   }
 
-  const onTitleChanged = e => setTitle(e.target.value)
-  const onBodyChanged = e => setBody(e.target.value)
+  const onTitleChanged = (e: any) => setTitle(e.target.value)
+  const onBodyChanged = (e: any) => setBody(e.target.value)
 
   // 关闭编辑框的时候同时重置选中 ID
   const closeModal = () => {
@@ -90,7 +90,7 @@ export default function Index() {
     dispatch(setSelectedId(-1))
   }
 
-  const edit = async (e) => {
+  const edit = async (e: any) => {
     e.preventDefault()
 
     try {
@@ -174,7 +174,7 @@ export default function Index() {
               </tr>
             </thead>
             <tbody>
-              {items.map((item) => (
+              {items.map((item: any) => (
                 <tr key={item.id}>
                   <th>
                     <div className="pt-1">

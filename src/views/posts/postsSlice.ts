@@ -14,25 +14,25 @@ import axios from 'axios'
 //      dispatch('fulfilled')
 //    }).catch((err) => dispatch('rejected')
 //  }
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', async (page) => {
+export const fetchPosts: any = createAsyncThunk('posts/fetchPosts', async (page) => {
   const res = await axios.get(`/posts?_embed=comments&_expand=user&_page=${page}`)
   return res.data
 })
 
 // 增
-export const addPost = createAsyncThunk('posts/addPost', async (item) => {
+export const addPost: any = createAsyncThunk('posts/addPost', async (item) => {
   const res = await axios.post('/posts', item)
   return res.data
 })
 
 // 改
-export const editPost = createAsyncThunk('posts/editPost', async (item: any) => {
+export const editPost: any = createAsyncThunk('posts/editPost', async (item: any) => {
   const res = await axios.patch(`/posts/${item.id}`, item)
   return res.data
 })
 
 // 删
-export const delPost = createAsyncThunk('posts/delPost', async (id) => {
+export const delPost: any = createAsyncThunk('posts/delPost', async (id) => {
   const res = await axios.delete(`/posts/${id}`)
   return res.data
 })

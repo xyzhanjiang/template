@@ -9,15 +9,15 @@ export default function PostAdd() {
   const [title, setTitle] = React.useState('')
   const [body, setBody] = React.useState('')
 
-  const isSubmitting = useSelector(state => state.posts.isSubmitting)
+  const isSubmitting = useSelector((state: any) => state.posts.isSubmitting)
 
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const onTitleChanged = e => setTitle(e.target.value)
-  const onBodyChanged = e => setBody(e.target.value)
+  const onTitleChanged = (e: any) => setTitle(e.target.value)
+  const onBodyChanged = (e: any) => setBody(e.target.value)
 
-  const add = async (e) => {
+  const add = async (e: any) => {
     e.preventDefault()
 
     try {

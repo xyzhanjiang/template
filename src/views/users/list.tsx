@@ -9,9 +9,9 @@ import Pagination from '../../components/pagination'
 
 import { pageSize } from '../../config'
 
-function Item({ item, index, setSelectedIndex }) {
+function Item({ item, index, setSelectedIndex }: any) {
 
-  const del = (item) => {
+  const del = (item: any) => {
     if (!window.confirm('Sure?')) return
     console.log(item)
     console.log('Delete complete!')
@@ -65,7 +65,7 @@ function Item({ item, index, setSelectedIndex }) {
 export default function List() {
   const [page, setPage] = React.useState(1)
   const [selectedIndex, setSelectedIndex] = React.useState(-1)
-  const fetchPosts = React.useCallback(async (key, page = 1) => {
+  const fetchUsers = React.useCallback(async (key, page = 1) => {
     let { headers, data } = await axios.get(
       `/users?_embed=comments&_page=${page}`)
     return {
@@ -79,13 +79,13 @@ export default function List() {
     resolvedData,
     latestData,
     error
-  } = usePaginatedQuery(['posts', page], fetchPosts, {})
+  }: any = usePaginatedQuery(['posts', page], fetchUsers, {})
 
   React.useEffect(() => {
     if (page < latestData?.totalPage) {
-      queryCache.prefetchQuery(['posts', page + 1], fetchPosts)
+      queryCache.prefetchQuery(['posts', page + 1], fetchUsers)
     }
-  }, [latestData, fetchPosts, page])
+  }, [latestData, fetchUsers, page])
 
   const user = resolvedData?.users[selectedIndex]
 
@@ -128,7 +128,7 @@ export default function List() {
               </tr>
             </thead>
             <tbody>
-              {resolvedData.users.map((item, index) => (
+              {resolvedData.users.map((item: any, index: number) => (
                 <Item
                   index={index}
                   item={item}
