@@ -40,12 +40,17 @@ bulma-admin
 |- /public
   |- index.html  // home page
 |- /src
-  |- app.js      // the main application component
-  |- index.js    // the entry point file for the application
+  |- app.tsx      // the main application component
+  |- index.tsx    // the entry point file for the application
   |- /common
   |- /components
+  |- /config
   |- /css        // styles
+  |- /data
   |- /images
   |- /store      // redux store
-  |- /views      // page components
+  |- /views      // page views
+    |- about.tsx // about page
+    |- index.tsx // index page
+    |- login.tsx // login page
 ```
