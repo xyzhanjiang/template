@@ -42,23 +42,27 @@ function PrivateRoute({ children, ...rest }: any) {
 export default function App() {
   return (
     <ReactQueryConfigProvider config={queryConfig}>
-      <Router>
-        <Switch>
-          <Route path="/register">
-            <Register/>
-          </Route>
-          <Route path="/login">
-            <Login/>
-          </Route>
-          <Route path="/about">
-            <About/>
-          </Route>
-          <PrivateRoute path="/">
-            <Index/>
-          </PrivateRoute>
-        </Switch>
-      </Router>
-      <Footer/>
+      <div className="wrapper">
+        <main className="main">
+          <Router>
+            <Switch>
+              <Route path="/register">
+                <Register/>
+              </Route>
+              <Route path="/login">
+                <Login/>
+              </Route>
+              <Route path="/about">
+                <About/>
+              </Route>
+              <PrivateRoute path="/">
+                <Index/>
+              </PrivateRoute>
+            </Switch>
+          </Router>
+        </main>
+        <Footer/>
+      </div>
     </ReactQueryConfigProvider>
   )
 }
