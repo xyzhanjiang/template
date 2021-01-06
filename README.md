@@ -13,6 +13,8 @@ React practising, for my work, [demo](https://xyzhanjiang.github.io/react-bulma-
 ## Install
 
 ``` shell
+git clone https://github.com/xyzhanjiang/react-bulma-admin.git
+cd react-bulma-admin
 npm install
 ```
 
