@@ -9,9 +9,9 @@ import Pagination from '../../components/pagination'
 
 import { pageSize } from '../../config'
 
-function Item({ item, index, setSelectedIndex }: any) {
+function Item({ item, index, setSelectedIndex }) {
 
-  const del = (item: any) => {
+  const del = (item) => {
     if (!window.confirm('Sure?')) return
     console.log(item)
     console.log('Delete complete!')
@@ -79,7 +79,7 @@ export default function List() {
     resolvedData,
     latestData,
     error
-  }: any = usePaginatedQuery(['posts', page], fetchUsers, {})
+  } = usePaginatedQuery(['posts', page], fetchUsers, {})
 
   React.useEffect(() => {
     if (page < latestData?.totalPage) {
@@ -128,7 +128,7 @@ export default function List() {
               </tr>
             </thead>
             <tbody>
-              {resolvedData.users.map((item: any, index: number) => (
+              {resolvedData.users.map((item, index) => (
                 <Item
                   index={index}
                   item={item}

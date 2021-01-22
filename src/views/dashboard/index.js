@@ -7,10 +7,10 @@ import chartData from '../../data/chart'
 export default function Dashboard() {
 
   React.useEffect(() => {
-    let chart1: any = new ApexCharts(document.querySelector('#chart1'), chartData[0])
+    let chart1 = new ApexCharts(document.querySelector('#chart1'), chartData[0])
     chart1.render()
 
-    let chart2: any = new ApexCharts(document.querySelector('#chart2'), chartData[1])
+    let chart2 = new ApexCharts(document.querySelector('#chart2'), chartData[1])
     chart2.render()
 
     return () => {

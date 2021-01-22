@@ -1,32 +1,31 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
 
-import { selectPostById } from './postsSlice'
+import { postStore } from './store'
 import { formatContent } from '../../common/util'
 import avatar from '../../images/logo.png'
 
 export default function Post() {
   const { id } = useParams()
 
-  const item = useSelector(state => selectPostById(state, +id))
+  const item = postStore.items.find(post => post.id === +id)
 
   const [content, setContent] = React.useState('')
   const [isSubmitting, setSubmitting] = React.useState(false)
 
-  const addComment = (e: any) => {
+  const addComment = (e) => {
     e.preventDefault()
     setSubmitting(true)
     setSubmitting(false)
   }
 
-  const delComment = (comment: any) => {
+  const delComment = (comment) => {
     if (!window.confirm('Sure?')) return
     console.log(comment)
     console.log('Complete!')
   }
 
-  const renderComments = (item: any) => item.comments.map((comment: any) => (
+  const renderComments = (item) => item.comments.map((comment) => (
     <div className="media" key={comment.id}>
       <div className="media-left">
         <p className="image is-64x64">

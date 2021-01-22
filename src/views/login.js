@@ -10,9 +10,9 @@ export default function Login() {
   const history = useHistory()
   const location = useLocation()
 
-  const { from } = location.state as any || { from: { pathname: '/' } }
+  const { from } = location.state || { from: { pathname: '/' } }
 
-  function login(e: any) {
+  function login(e) {
     e.preventDefault()
     auth.authenticate({
       name,
@@ -38,8 +38,8 @@ export default function Login() {
                   required
                   type="text"
                   onChange={({ target }) => setName(target.value)}
-                  onInput={({ target }: { target: any }) => target.setCustomValidity('')}
-                  onInvalid={({ target }: { target: any }) => target.setCustomValidity(NAME_RULE.message)}
+                  onInput={({ target }) => target.setCustomValidity('')}
+                  onInvalid={({ target }) => target.setCustomValidity(NAME_RULE.message)}
                   placeholder="Name"/>
               </div>
             </div>
@@ -52,8 +52,8 @@ export default function Login() {
                   required
                   type="password"
                   onChange={({ target }) => setPassword(target.value)}
-                  onInput={({ target }: { target: any }) => target.setCustomValidity('')}
-                  onInvalid={({ target }: { target: any }) => target.setCustomValidity(PASSWORD_RULE.message)}
+                  onInput={({ target }) => target.setCustomValidity('')}
+                  onInvalid={({ target }) => target.setCustomValidity(PASSWORD_RULE.message)}
                   placeholder="Password"/>
               </div>
             </div>

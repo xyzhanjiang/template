@@ -1,32 +1,25 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { unwrapResult } from '@reduxjs/toolkit'
 import { Link, useHistory } from 'react-router-dom'
 
-import { addPost } from './postsSlice'
+import { postStore } from './store'
 
 export default function PostAdd() {
   const [title, setTitle] = React.useState('')
   const [body, setBody] = React.useState('')
 
-  const isSubmitting = useSelector((state: any) => state.posts.isSubmitting)
-
-  const dispatch = useDispatch()
   const history = useHistory()
 
-  const onTitleChanged = (e: any) => setTitle(e.target.value)
-  const onBodyChanged = (e: any) => setBody(e.target.value)
+  const onTitleChanged = (e) => setTitle(e.target.value)
+  const onBodyChanged = (e) => setBody(e.target.value)
 
-  const add = async (e: any) => {
+  const add = async (e) => {
     e.preventDefault()
 
     try {
-      const actionResult = await dispatch(addPost({
+      const actionResult = await postStore.addPost({
         title,
         body
-      }))
-      // 解开后返回请求的 response
-      unwrapResult(actionResult)
+      })
       setTitle('')
       setBody('')
       history.push('/posts')
@@ -77,8 +70,8 @@ export default function PostAdd() {
                 <div className="field is-grouped">
                   <div className="control">
                     <button
-                      className={`button is-link${isSubmitting ? ' is-loading' : ''}`}
-                      disabled={isSubmitting}
+                      className={`button is-link${postStore.isSubmitting ? ' is-loading' : ''}`}
+                      disabled={postStore.isSubmitting}
                       type="submit">
                       Create
                     </button>

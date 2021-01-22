@@ -1,15 +1,10 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { useRouteMatch, Link } from 'react-router-dom'
+import { observer } from 'mobx-react'
 
 import {
-  selectAllPosts, editPost, delPost,
-  postDeleted, setSelectedId,
-  fetchPosts, selectPostById,
-  selectOne, unSelectOne,
-  selectAll, unSelectAll,
-  pageUpdated
-} from './postsSlice'
+  postStore
+} from './store'
 import Checkbox from '../../components/checkbox'
 import Pagination from '../../components/pagination'
 import Modal from '../../components/modal'
@@ -18,44 +13,36 @@ import { pageSize } from '../../config'
 
 const totalCount = 100
 
-export default function Index() {
+export default observer(() => {
   const [isModalShown, setModalShown] = React.useState(false)
 
   // Edit Modal
   const [title, setTitle] = React.useState('')
   const [body, setBody] = React.useState('')
 
-  const status = useSelector((state: any) => state.posts.status)
-  const error = useSelector((state: any) => state.posts.error)
-  const items = useSelector(selectAllPosts)
-  const selectedId = useSelector((state: any) => state.posts.selectedId)
-  const selectedIds = useSelector((state: any) => state.posts.selectedIds)
-  const item = useSelector((state: any) => selectPostById(state, selectedId))
-  const page = useSelector((state: any) => state.posts.page)
-  const isSubmitting = useSelector((state: any) => state.posts.isSubmitting)
+  const page = postStore.page
 
-  const dispatch = useDispatch()
   const match = useRouteMatch()
 
   // 定义 setPage 函数传给 Pagination 组件
-  const setPage = async (_page: number) => {
+  const setPage = async (_page) => {
     if (page !== _page) {
-      dispatch(pageUpdated(_page))
-      await dispatch(fetchPosts(_page))
-      dispatch(unSelectAll()) // 同时清空勾选
+      postStore.pageUpdated(_page)
+      await postStore.fetchPosts(_page)
+      postStore.unSelectAll() // 同时清空勾选
     }
   }
 
-  const del = async (item: any) => {
+  const del = async (item) => {
     if (!window.confirm('Sure?')) return
-    await dispatch(delPost(item.id))
-    dispatch(postDeleted(item.id))
+    await postStore.delPost(item.id)
+    postStore.postDeleted(item.id)
   }
 
   // 点击编辑按钮展示当前选中 item
   // 弹框展示
-  const onViewClicked = (item: any) => {
-    dispatch(setSelectedId(item.id))
+  const onViewClicked = (item) => {
+    postStore.setSelectedId(item.id)
     setTitle(item.title)
     setBody(item.body)
     setModalShown(true)
@@ -65,40 +52,40 @@ export default function Index() {
     alert('Constructing!')
   }
 
-  const onSelectAll = (e: any) => {
+  const onSelectAll = (e) => {
     if (e.target.checked) {
-      dispatch(selectAll())
+      postStore.selectAll()
     } else {
-      dispatch(unSelectAll())
+      postStore.unSelectAll()
     }
   }
 
-  const onSelectOne = (e: any, id: number) => {
+  const onSelectOne = (e, id) => {
     if (e.target.checked) {
-      dispatch(selectOne(id))
+      postStore.selectOne(id)
     } else {
-      dispatch(unSelectOne(id))
+      postStore.unSelectOne(id)
     }
   }
 
-  const onTitleChanged = (e: any) => setTitle(e.target.value)
-  const onBodyChanged = (e: any) => setBody(e.target.value)
+  const onTitleChanged = (e) => setTitle(e.target.value)
+  const onBodyChanged = (e) => setBody(e.target.value)
 
   // 关闭编辑框的时候同时重置选中 ID
   const closeModal = () => {
     setModalShown(false)
-    dispatch(setSelectedId(-1))
+    postStore.setSelectedId(-1)
   }
 
-  const edit = async (e: any) => {
+  const edit = async (e) => {
     e.preventDefault()
 
     try {
-      await dispatch(editPost({
-        id: item.id,
+      await postStore.editPost({
+        id: postStore.selectedId,
         title,
         body
-      }))
+      })
       closeModal()
     } catch (err) {
       console.log(err)
@@ -106,8 +93,8 @@ export default function Index() {
   }
 
   React.useEffect(() => {
-    if (items.length === 0) {
-      dispatch(fetchPosts(page))
+    if (postStore.items.length === 0) {
+      postStore.fetchPosts(page)
     }
   }, [])
 
@@ -120,10 +107,10 @@ export default function Index() {
           <li className="is-active"><a href="#" aria-current="page">List</a></li>
         </ul>
       </nav>
-      {status === 'loading' && items.length === 0 ? (
+      {postStore.status === 'loading' && postStore.items.length === 0 ? (
         <div>Loading...</div>
-      ) : status === 'failed' ? (
-        <div>{error}</div>
+      ) : postStore.status === 'failed' ? (
+        <div>{postStore.error}</div>
       ) : <>
         <nav className="level">
           <div className="level-left">
@@ -160,7 +147,7 @@ export default function Index() {
                   <div className="pt-1">
                     <Checkbox>
                       <input
-                        checked={selectedIds.length === items.length}
+                        checked={postStore.selectedIds.size === postStore.items.length}
                         onChange={onSelectAll}
                         type="checkbox"/>
                     </Checkbox>
@@ -174,13 +161,13 @@ export default function Index() {
               </tr>
             </thead>
             <tbody>
-              {items.map((item: any) => (
+              {postStore.items.map((item) => (
                 <tr key={item.id}>
                   <th>
                     <div className="pt-1">
                       <Checkbox>
                         <input
-                          checked={selectedIds.includes(item.id)}
+                          checked={postStore.selectedIds.has(item.id)}
                           onChange={(e) => onSelectOne(e, item.id)}
                           type="checkbox"/>
                       </Checkbox>
@@ -275,7 +262,7 @@ export default function Index() {
           </section>
           <footer className="modal-card-foot">
             <button
-              className={`button is-link${isSubmitting ? ' is-loading' : ''}`}
+              className={`button is-link${postStore.isSubmitting ? ' is-loading' : ''}`}
               onClick={edit}
               type="submit">
               Save changes
@@ -287,4 +274,4 @@ export default function Index() {
       </Modal>
     </>
   )
-}
+})

@@ -11,7 +11,7 @@ const getScrollbarWidth = () => {
 
 const scrollbarWidth = getScrollbarWidth()
 
-export default function Modal(props: any) {
+export default function Modal(props) {
   const modal = React.useRef(null)
   React.useEffect(() => {
     document.documentElement.classList[props.isShown ? 'add' : 'remove']('is-clipped')

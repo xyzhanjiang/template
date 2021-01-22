@@ -7,7 +7,7 @@ export default function PostAdd() {
 
   const [isSubmitting, setSubmitting] = React.useState(false)
 
-  const add = (e: any) => {
+  const add = (e) => {
     e.preventDefault()
     setSubmitting(true)
 

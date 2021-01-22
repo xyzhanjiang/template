@@ -8,12 +8,12 @@ import './css/style.scss'
 import '@fortawesome/fontawesome-free/css/fontawesome.css'
 import '@fortawesome/fontawesome-free/css/solid.css'
 
+import 'regenerator-runtime'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
 import axios from 'axios'
 
-import store from './store'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
@@ -22,9 +22,7 @@ axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com/'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 )

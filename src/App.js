@@ -22,7 +22,7 @@ const queryConfig = { queries: { refetchOnWindowFocus: false } }
 console.log("test merge branch")
 
 // 未认证跳转登录页
-function PrivateRoute({ children, ...rest }: any) {
+function PrivateRoute({ children, ...rest }) {
   return (
     <Route
       {...rest}
