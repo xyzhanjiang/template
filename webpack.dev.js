@@ -51,6 +51,12 @@ module.exports = {
         ],
       },
       {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        enforce: 'pre',
+        loader: 'eslint-loader'
+      },
+      {
         test: /\.m?js$/,
         exclude: /node_modules/,
         use: {
@@ -90,5 +96,5 @@ module.exports = {
     compress: true,
     port: 8080
   },
-  devtool: '#source-map'
+  devtool: 'source-map'
 }
