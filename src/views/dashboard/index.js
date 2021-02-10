@@ -30,7 +30,7 @@ export default function Dashboard() {
           <li className="is-active"><a href="#" aria-current="page">Dashboard</a></li>
         </ul>
       </nav>
-      <section className="section">
+      <section>
         <div className="tile is-ancestor has-text-centered">
           <div className="tile is-parent">
             <article className="tile is-child box notification is-primary">

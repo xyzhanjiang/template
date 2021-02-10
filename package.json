@@ -11,7 +11,7 @@
     "bulma": "^0.9.0",
     "by-radio": "^1.2.2",
     "dompurify": "^2.0.12",
-    "marked": "^1.1.1",
+    "marked": "^2.0.0",
     "mobx": "^6.0.4",
     "mobx-react": "^7.0.5",
     "react": "^16.13.1",

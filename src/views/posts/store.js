@@ -62,6 +62,10 @@ class Post {
     this.error = error.message
   }
 
+  @action endSubmit() {
+    this.isSubmitting--
+  }
+
   @action async fetchPosts(page) {
     this.isSubmitting++
     this.status = 'loading'
@@ -76,7 +80,7 @@ class Post {
         this.status = 'failed'
       })
     }
-    this.isSubmitting--
+    this.endSubmit()
   }
 
   @action async addPost(item) {
@@ -89,7 +93,7 @@ class Post {
     } catch (err) {
       alert(err)
     }
-    this.isSubmitting--
+    this.endSubmit()
   }
 
   // 改
@@ -108,7 +112,7 @@ class Post {
     } catch (err) {
       alert(err)
     }
-    this.isSubmitting--
+    this.endSubmit()
   }
 
   // 删
@@ -119,7 +123,7 @@ class Post {
     } catch (err) {
       alert(err)
     }
-    this.isSubmitting--
+    this.endSubmit()
   }
 }
 
