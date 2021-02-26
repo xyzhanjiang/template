@@ -1,6 +1,6 @@
 {
   "name": "react-bulma-admin",
-  "version": "0.0.1-alpha.4",
+  "version": "0.0.1-alpha.5",
   "private": true,
   "author": "by.Genesis",
   "license": "MIT",
@@ -26,7 +26,11 @@
   "eslintConfig": {},
   "browserslist": {
     "production": [
-      ">0.2%",
+      "Chrome >= 55",
+      "Safari >= 11",
+      "iOS >= 11",
+      "Firefox >= 52",
+      "Edge >= 15",
       "not dead",
       "not op_mini all"
     ],

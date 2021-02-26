@@ -56,3 +56,10 @@ bulma-admin
     |- index.tsx // index page
     |- login.tsx // login page
 ```
+
+## Browser support
+
+* Google Chrome 55+
+* Safari 11+
+* Firefox 52+
+* Edge 15+

@@ -10,6 +10,7 @@ import Posts from './posts'
 import Form from './form'
 import Tiles from './tiles'
 import Buttons from './buttons'
+import Carousel from './carousel'
 
 export default function Login() {
 
@@ -40,6 +41,9 @@ export default function Login() {
               </Route>
               <Route path="/buttons">
                 <Buttons/>
+              </Route>
+              <Route path="/carousel">
+                <Carousel/>
               </Route>
               <Route path="/">
                 <Dashboard/>

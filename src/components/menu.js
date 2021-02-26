@@ -93,6 +93,13 @@ export default function Menu() {
             Buttons
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            activeClassName="is-active"
+            to="/carousel">
+            Carousel
+          </NavLink>
+        </li>
       </ul>
     </aside>
   )

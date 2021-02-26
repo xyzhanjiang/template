@@ -1,0 +1,20 @@
+.carousel {
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-item {
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: .2em;
+  height: 100px;
+  padding: .5em;
+  position: absolute;
+  visibility: hidden;
+  width: 100%;
+}
+
+.carousel-item.active {
+  visibility: visible;
+}

@@ -8,8 +8,6 @@ import './css/style.scss'
 import '@fortawesome/fontawesome-free/css/fontawesome.css'
 import '@fortawesome/fontawesome-free/css/solid.css'
 
-import 'regenerator-runtime'
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
