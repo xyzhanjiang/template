@@ -1,22 +1,18 @@
-# react-bulma-admin
+# template
 
-![axios version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/axios) ![bulma version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/bulma) ![react version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/react) ![react-router version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/react-router-dom) ![mobx version](https://img.shields.io/github/package-json/dependency-version/xyzhanjiang/react-bulma-admin/mobx) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/xyzhanjiang/react-bulma-admin/pulls)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg)](https://github.com/xyzhanjiang/template/pulls)
 
-Experimental, [demo](https://xyzhanjiang.github.io/react-bulma-admin/)
-
-* React
-* React-router
-* [Mobx](https://github.com/mobxjs/mobx)
-* [Bulma](https://github.com/jgthms/bulma)
-* [BulmaTemplates](https://github.com/BulmaTemplates/bulma-templates)
+Template
 
 ## Install
 
 ``` shell
-git clone https://github.com/xyzhanjiang/react-bulma-admin.git
-cd react-bulma-admin
+git clone https://github.com/xyzhanjiang/template.git
+cd template
 npm install
 ```
+
+or generate project from this template.
 
 ## Usage
 
@@ -37,24 +33,16 @@ npm run build
 ## Structure
 
 ``` diff
-bulma-admin
+template
 |- package.json
 |- /public
   |- index.html  // home page
 |- /src
-  |- app.tsx      // the main application component
-  |- index.tsx    // the entry point file for the application
+  |- index.js    // the entry point file for the application
   |- /common
-  |- /components
   |- /config
   |- /css        // styles
-  |- /data
   |- /images
-  |- /store      // redux store
-  |- /views      // page views
-    |- about.tsx // about page
-    |- index.tsx // index page
-    |- login.tsx // login page
 ```
 
 ## Browser support

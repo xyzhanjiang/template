@@ -79,20 +79,7 @@ module.exports = {
     })
   ],
   devServer: {
-    before(app, server) {
-      app.post('/login', (req, res) => {
-        res.json({
-          token: 'yyy'
-        })
-      })
-    },
     historyApiFallback: true,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        pathRewrite: {'^/api' : ''}
-      }
-    },
     compress: true,
     port: 8080
   },
