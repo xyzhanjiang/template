@@ -1,3 +1,21 @@
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+html {
+  background-color: #fff;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
 }
