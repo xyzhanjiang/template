@@ -9,7 +9,8 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    publicPath: '/',
+    assetModuleFilename: 'images/[hash][ext][query]'
   },
   resolve: {
     extensions: ['.js'],
@@ -21,12 +22,10 @@ module.exports = {
     rules: [
       {
         test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: 'fonts/[name].[ext]' 
-          }
-        }]
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[hash][ext][query]'
+        }
       },
       {
         test: /\.css$/,
@@ -57,10 +56,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        loader: 'file-loader',
-        options: {
-          name: 'images/[name].[ext]'
-        }
+        type: 'asset/resource'
       }
     ]
   },
@@ -73,7 +69,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     compress: true,
-    port: 8080
+    port: 8082
   },
   devtool: 'source-map'
 }
