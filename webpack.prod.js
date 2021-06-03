@@ -2,6 +2,7 @@
 
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
@@ -21,6 +22,14 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.vue$/,
+        use: [
+          {
+            loader: 'vue-loader'
+          }
+        ]
+      },
       {
         test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
         type: 'asset/resource',
@@ -60,6 +69,7 @@ module.exports = {
       filename: 'index.html',
       template: './public/index.html'
     }),
+    new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css'
     })

@@ -30,6 +30,7 @@
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/plugin-proposal-decorators": "^7.12.12",
     "@babel/preset-env": "^7.12.13",
+    "@vue/compiler-sfc": "^3.0.11",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.0.2",
@@ -43,9 +44,15 @@
     "postcss-loader": "^5.0.0",
     "postcss-preset-env": "^6.7.0",
     "style-loader": "^2.0.0",
+    "vue-loader": "^16.2.0",
     "webpack": "^5.21.2",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3"
+  },
+  "dependencies": {
+    "vue": "^3.0.11",
+    "vue-router": "^4.0.8",
+    "vuex": "^4.0.1"
   }
 }

@@ -2,6 +2,7 @@
 
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
   mode: 'development',
@@ -20,6 +21,14 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.vue$/,
+        use: [
+          {
+            loader: 'vue-loader'
+          }
+        ]
+      },
       {
         test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
         type: 'asset/resource',
@@ -64,12 +73,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './public/index.html'
-    })
+    }),
+    new VueLoaderPlugin()
   ],
   devServer: {
     historyApiFallback: true,
     compress: true,
-    port: 8082
+    port: 8080
   },
   devtool: 'source-map'
 }

@@ -22,7 +22,7 @@ or generate project from this template.
 npm run start
 ```
 
-Visit localhost:3000
+Visit localhost:8080
 
 **Build**
 
